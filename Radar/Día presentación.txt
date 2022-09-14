@@ -1,0 +1,91 @@
+Primario: No requiere la contestación del ente detectado. El transmite y recibe los ecos de la onda fruto de 
+que hay un objeto.
+
+Monoestaticos: Es porque tienen el trasmisor/receptor estáticos. De hecho pueden usar la mísma antena.
+
+
+Seguimiento: Puede estar en vigilncia o no. A la que detecta un blanco de alta priridad 
+le sigue.
+
+Convencional (blanco puntual) Manda pulsos, y al detectar un ente recibe una respuesta. Esta es una única respuesta.
+
+/*/*/* En orden, las contraposiciones a los de arriba.
+
+Secundario: En la estación hay una antena igual que en el primario. Esta antena transmite una señal
+codificada de forma que el ente detectado detecta dicha señal y emite una respuesta.
+
+Multi-estáticos: Tienen varios transmisores/receptores.
+
+Radar vigilancia: Es un radar que tiene un eje de giro. Puede ser 1ario/secundario.
+
+Radar de alta resolución: Por cada pulso que se Tx se Rx multiples pulsos de respuesta. Esto ocurre porque el blanco
+es disperso.
+
+
+/*/*/* Sistema de radas pulsado
+Radares de pulso:
+	Son radars que envian durante un pulso de duración TAU una señal, y escuchan durante otro periodo generalmente
+	mayor al pulso.
+	
+	En los primarios es una señal, en los secundarios es además una señal modulada codificada.
+	
+	El uso de estos pulsos permite que se pueda usar una mísma antena para lanzar el pulso y escuchar. Tx durante un peridoo
+	y hasta que se da otro Rx.
+	Podemos usar un circulador para intercalar el Tx con el Rx.
+
+	El periodo suele tener duraciones de microsegundos.
+		To = 1/PRF
+
+
+		C(3e8) = 2*Rblanco/Trblanco -> Rblanco = C* Trblanco/2
+				Trblanco es el retardo con que te llega la onda.
+				Rblanco es la distancia a la que está el blanco.
+		Esta formula se puede usar ya que tenemos el marcaje del pulso. Cada vez que llegamos a To reseteo el
+		reloj.
+
+	Este calculo nos permite generar la matriz radar.
+		t0 = 0   -> Pulso en Phi_0, y mides todas las muestras que tengas.
+		t0+t0-> Pulso Phi_1, y mides todas las muestras que tengas.
+
+	Ocurre que puedo tener dos ecos captados, que puedene star más o menos cerca en función
+	de la distancia entre ellos. Si los blancos se acercan, los pulsos se van a combinar.
+	Como el sistema es lineal, vamos a detectar una combinación de estos pulsos,, por lo que
+	solo detecto un pulso grande.
+	
+	Esta distancia que nos impide distinguir bien los pultos es un parámetro llamada resolución
+	en distancia. La difernecia entre ellos como mucho debe ser TAU.
+	Si se acercan se usan las 2 formulas inferiores de la diapositiva (7)
+			{PILAR HA DICHO QUE HAY QUE SABERSE LA DE DELTA_R}
+
+
+	En esta situación en la que tenemos dos o más blancos que puedene estar proximos, debemos
+	jugar con los ángulos. 
+	La capacidad de distinguir dos blancos angulados es el ancho de haz (plano azimut) de la antena. Este parámetro
+	nos indica que requerimos antenas muy directivas para no confindir blancos en el mísmo ázimut.
+
+
+ 
+/*/*/* Celda de resolución
+
+	Una celda se puede entender como una especia de pixel en el cual tenemos una capacidad de distinción.
+	Si TAU lo hacemos cada vez más corto, la celda de resolución es más peqieña y un mísmo blanco
+	puede ocupar más de una celda.
+	En este caso tendremos varias respuestas, una por cada celda en la que esté el objeto.
+	Conforme tengamos más pulsos, podremos obtenr más muestras de forma que podamos obtener mucha más información. Esta info puede ser usada en tareas de clasificación.
+	
+/*/*/* Tiempo de iluminacion (dwell time)
+	
+	Es el tiempo de iluminación de la antena.Es decir, es el tiempo durante el cual 
+	 
+	
+	nº pulsos por blanco: Es el número de ecos recibidos por un blanco.
+	
+	?¿?¿ Es el tiempo que tarda la antena  
+
+		[MIRAR DIAPOS 12-13]
+	
+
+
+
+
+	
