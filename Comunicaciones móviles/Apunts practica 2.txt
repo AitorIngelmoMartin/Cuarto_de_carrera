@@ -1,0 +1,64 @@
+notas practica 2
+
+	2a linea: Porcentaje de gente que usa un movil 
+
+	3a: De todo el mercado, cuanto porcentaje es tuyo.
+
+	4a: Cuantos de esos clientes son del servicio voz y cuantos de datos
+
+	5a: 
+
+Si divido la cantidad total de minutos entre los clientes, tengo las horas anuales
+
+De anuales a diario es dividir por 250, los días laborales.
+
+
+		Er*60 = Minutis
+
+		Minutis/60 = erlangs
+
+
+Nºtotal clientes/superficie = densidad de clientes
+
+trx == pareja frecuencias tx/rx
+
+sector== en cuantos cachos divido 360º
+
+nºcanales(servidores) = nºsectores*nºdetrx/sec*Nºtime_slotes/trx*serviceblocking
+
+Trafico demandado= lo sacamos por la erlang-B(Servicores,tráfico,%perdida)
+
+Er/Km = Cuanto consume cada cliente * Densidad de clientes
+
+(Er/Km)/Er
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
