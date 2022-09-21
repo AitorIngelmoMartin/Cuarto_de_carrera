@@ -31,8 +31,8 @@ while(True):
     if cv2.waitKey(1) & 0xFF == ord('q'):
         copia_frame = frame.copy()
         copias_rgb = extraccion_canales(copia_frame)
-        gray = cv2.cvtColor(copia_frame, cv2.COLOR_BGR2GRAY)
-        concatenacion_horizontal_1 = cv2.hconcat([cv2.cvtColor(gray, cv2.COLOR_BGR2GRAY),copias_rgb[0]])
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        concatenacion_horizontal_1 = cv2.hconcat([frame,copias_rgb[0]])
         concatenacion_horizontal_2 = cv2.hconcat([copias_rgb[1],copias_rgb[2]])
         concatenacion_final        = cv2.vconcat([concatenacion_horizontal_1,concatenacion_horizontal_2])
         cv2.imwrite("Aitor.png",concatenacion_final)
