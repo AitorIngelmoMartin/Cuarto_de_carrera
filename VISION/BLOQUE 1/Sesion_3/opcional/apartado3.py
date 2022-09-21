@@ -37,7 +37,8 @@ while ret1 and ret2:
     #Calcular diferencia de imágenes: img_gray e img_ref_gray
     diferencia_frames = cv2.absdiff(img_gray,img_ref_gray)    
        
-    cv2.imshow('Img Original',img)
+    cv2.imshow('Img Original',img_gray)
+    
     
     #Visualizar la imagen de detección de movimiento en otra ventana (completar código)
     cv2.imshow("Deteccion de movimiento",diferencia_frames)  
