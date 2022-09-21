@@ -2,19 +2,19 @@ import cv2
 import numpy as np
 
 #Creamos un objeto de video-captura
-video = "opcional\movimiento.mp4"
+video = "opcional/movimiento.mp4"
 cap   = cv2.VideoCapture(video)
 
 fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-out    = cv2.VideoWriter('Superposicion.avi',fourcc, 29, (1080,1080))
+out    = cv2.VideoWriter('Superposicion.avi',fourcc, cap.get(cv2.CAP_PROP_FPS), (1080,1080))
 #Leo dos primeras imágenes
 ret1,img_ref  = cap.read() 
 ret2,img      = cap.read() 
 
 #Dimensiones de la imagen capturada por la cámara
 [alto,ancho] = img.shape[0:2]
-while ret1 and ret2:
-    
+
+while ret1 and ret2:    
     #Conversión a escala de gris de la imagen actual img:
     img_gray     = cv2.cvtColor(img,  cv2.COLOR_BGR2GRAY)
     #Conversión a escala de gris de la imagen de referencia del frame anterior:
@@ -36,8 +36,9 @@ while ret1 and ret2:
 
     frame_superpuesto = np.dstack((img,diferencia_frames))
 
+    out.write(concatenacion)
     cv2.imshow("Deteccion de movimiento",concatenacion)  
-    out.write(concatenacion)        
+        
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
     
