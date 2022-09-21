@@ -37,7 +37,7 @@ while ret1 and ret2:
     frame_superpuesto = np.dstack((img,diferencia_frames))
 
     cv2.imshow("Deteccion de movimiento",concatenacion)  
-    out.write(frame_superpuesto)        
+    out.write(concatenacion)        
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
     
