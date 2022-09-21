@@ -1,20 +1,18 @@
-# -*- coding: utf-8 -*-
 import cv2
 import numpy as np
 
 #Creamos un objeto de video-captura
-video = "movimiento.mp4"
+video = "opcional\movimiento.mp4"
 cap   = cv2.VideoCapture(video)
 
 fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-out    = cv2.VideoWriter('Superposicion.avi',fourcc, 29, (1080,1920))
+out    = cv2.VideoWriter('Superposicion.avi',fourcc, 29, (1080,1080))
 #Leo dos primeras imágenes
-ret1, img_ref = cap.read() 
+ret1,img_ref  = cap.read() 
 ret2,img      = cap.read() 
 
 #Dimensiones de la imagen capturada por la cámara
-[alto,ancho]=img.shape[0:2]
-
+[alto,ancho] = img.shape[0:2]
 while ret1 and ret2:
     
     #Conversión a escala de gris de la imagen actual img:
@@ -24,10 +22,8 @@ while ret1 and ret2:
     #Calcular diferencia de imágenes: img_gray e img_ref_gray
     diferencia_frames = cv2.absdiff(img_gray,img_ref_gray)    
     
-    cv2.imshow('Img Original',img_gray)    
-    
-    #Visualizar la imagen de detección de movimiento en otra ventana (completar código)
-    cv2.imshow("Deteccion de movimiento",diferencia_frames)  
+    #Visualizar los dos videos
+    concatenacion = cv2.hconcat([img_gray,diferencia_frames])
 
     #En cada iteración, la imagen anterior se convierte en referencia 
     #(clonación de imágenes). Completar código    
@@ -39,6 +35,8 @@ while ret1 and ret2:
     # Guardado video superpuesto
 
     frame_superpuesto = np.dstack((img,diferencia_frames))
+
+    cv2.imshow("Deteccion de movimiento",concatenacion)  
     out.write(frame_superpuesto)        
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
