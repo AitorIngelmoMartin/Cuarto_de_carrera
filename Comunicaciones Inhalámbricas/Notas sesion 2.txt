@@ -1,0 +1,12 @@
+Bluethooth-Estandar 802.15.1
+	Surge para la conexion de dispositivos al PC. Inicialmente busca conseguir cuanta
+	mas velocidad mejor.
+	Esto decide cosas como el acceso al medio o el ancho de banda.
+	
+	Desde aqui, el siguiente paso fue al empezar a hablar del Internet de las cosas.
+	
+
+	Bluethoot mesh
+	Es un bluethoot que emplea una topografía en forma de malla donde todos se puedenm
+	conectar con todos.
+	Es decir, admite el intercambio Broadcast.
