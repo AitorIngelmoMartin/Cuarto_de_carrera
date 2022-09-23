@@ -14,8 +14,10 @@ ret2,img      = cap.read()
 
 #Dimensiones de la imagen capturada por la cámara
 [alto,ancho] = img.shape[0:2]
+
 cuenta =0
 img_array=[]
+
 while ret1 and ret2:    
     #Conversión a escala de gris de la imagen actual img:
     img_gray     = cv2.cvtColor(img,  cv2.COLOR_BGR2GRAY)
@@ -55,5 +57,3 @@ while ret1 and ret2:
 cap.release()
 out.release()
 cv2.destroyAllWindows()
-
-
