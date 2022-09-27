@@ -31,8 +31,6 @@ def EventoRaton(evento, x, y, flags,datos):
     #Refrescamos la imagen en pantalla.
     cv2.imshow("Imagen", img)
 
-
-
 #Abrimos la imagen indicada en el primer argumento
 try:
     img=cv2.imread("pajaro.jpeg", cv2.IMREAD_UNCHANGED)
@@ -41,7 +39,7 @@ except:
 
 #Comprobamos si la imagen se ha abierto correctamente.
 if img is None:
-    print("ERROR: Imagen: ", sys.argv[1], " no existe\n")
+    print("ERROR: Imagen no existe\n")
 else:
     #Creamos una ventana donde mostrar la imagen.
     cv2.namedWindow("Imagen", cv2.WINDOW_AUTOSIZE)
