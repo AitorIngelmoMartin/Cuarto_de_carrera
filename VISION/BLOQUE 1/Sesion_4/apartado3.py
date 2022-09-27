@@ -9,6 +9,7 @@ r = 0
 b = 0
 g = 0
 s = 1
+i = 0
 
 def limpiar(x): #Necesitamos esta función aunque no haga nada
     global s
@@ -34,7 +35,8 @@ def EventoRaton(evento, x, y, flags,datos):
     global color
     global grosor
     global start
-     
+    global coordenada_inicial
+    
     #Al pulsar el botón izquierdo se activa la representación del pincel'
     if evento == cv2.EVENT_LBUTTONDOWN:
         #TODO:
@@ -59,7 +61,12 @@ def EventoRaton(evento, x, y, flags,datos):
         cv2.circle(img, (x,y), 1, color, grosor)
 
         #######################################################################
-        
+    if evento == cv2.EVENT_RBUTTONDOWN:
+        coordenada_inicial = (x,y)
+        print("Pulsar botón izquierdo\n")
+    elif evento == cv2.EVENT_RBUTTONUP:
+        cv2.rectangle(img, coordenada_inicial, (x,y), color, grosor)
+        print("Soltar botón izquierdo\n")        
 
 
 #Creamos una imagen de fondo negro sobre la que se pintará
@@ -103,6 +110,10 @@ while True:
     k = cv2.waitKey(1) & 0xFF 
     if k == 27:
         break
+    if k == ord('f'):
+        cv2.imwrite("captura%d.png" % i ,img)
+        i+=1    
+        print("Color cambiado a verde")
     #TODO:
     ###########################################################################
     #Leemos las posiciones de los trackbars RGB y el grosor. 
