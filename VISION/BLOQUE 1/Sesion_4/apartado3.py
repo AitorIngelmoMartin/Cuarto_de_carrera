@@ -10,7 +10,7 @@ b = 0
 g = 0
 s = 1
 i = 0
-
+dibujo = []
 def limpiar(x): #Necesitamos esta función aunque no haga nada
     global s
     s = cv2.getTrackbarPos(switch,'Paint') 
@@ -65,7 +65,10 @@ def EventoRaton(evento, x, y, flags,datos):
         coordenada_inicial = (x,y)
         print("Pulsar botón izquierdo\n")
     elif evento == cv2.EVENT_RBUTTONUP:
-        cv2.rectangle(img, coordenada_inicial, (x,y), color, grosor)
+        if dibujo == "Linea":
+            cv2.line(img, coordenada_inicial, (x,y), color, grosor)  
+        if dibujo == "Recnángulo":         
+            cv2.rectangle(img, coordenada_inicial, (x,y), color, grosor)
         print("Soltar botón izquierdo\n")        
 
 
@@ -114,6 +117,10 @@ while True:
         cv2.imwrite("captura%d.png" % i ,img)
         i+=1    
         print("Color cambiado a verde")
+    if k == ord("l"):
+        dibujo = "Linea"
+    if k == ord("r"):
+        dibujo = "Recnángulo"
     #TODO:
     ###########################################################################
     #Leemos las posiciones de los trackbars RGB y el grosor. 

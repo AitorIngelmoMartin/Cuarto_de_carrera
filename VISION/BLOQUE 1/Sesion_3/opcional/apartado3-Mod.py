@@ -6,7 +6,7 @@ import numpy as np
 cap   = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
 fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-out = cv2.VideoWriter('opcional/Sensor_movimiento.avi',fourcc, 30.0, (1280,480))
+out = cv2.VideoWriter('Sensor_movimiento.avi',fourcc, 30.0, (1280,480))
 
 #Leo dos primeras imágenes
 ret1,img_ref  = cap.read() 
@@ -30,7 +30,7 @@ while ret1 and ret2:
     concatenacion = cv2.hconcat([img_gray,diferencia_frames])
     cv2.imshow("Deteccion de movimiento",concatenacion)
     
-    cv2.imwrite("opcional/fotogramas/frame%d.png" % cuenta ,concatenacion)
+    cv2.imwrite("fotogramas/frame%d.png" % cuenta ,concatenacion)
     cuenta+=1        
     #En cada iteración, la imagen anterior se convierte en referencia 
     #(clonación de imágenes). Completar código    
@@ -39,10 +39,10 @@ while ret1 and ret2:
     #Lectura de imagen actual (img). 
     ret2,img = cap.read()
 
-    # Guardado video superpuesto               
+    # Guardado video superpuesto            
     
     if cv2.waitKey(1) & 0xFF == ord('q'):
-        for filename in glob.glob('opcional/fotogramas/*.png'):
+        for filename in glob.glob('fotogramas/*.png'):
             
             img = cv2.imread(filename)
             height, width, layers = img.shape
