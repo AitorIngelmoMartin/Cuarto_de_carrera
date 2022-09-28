@@ -9,14 +9,10 @@ def EventoRaton(evento, x, y, flags,datos):
     global coordenada_inicial
     global thickness
     if evento == cv2.EVENT_MOUSEMOVE:
-    # Este evento se genera cada vez que el ratón se mueve por encima de la
-    # ventana. Se pueden generar varios eventos similares por segundo.
-    # Por ese motivo, si el evento no es necesario, es conveniente salir
-    # inmediatamente de la función para no bloquear la aplicación.
         pass
 
-    elif evento == cv2.EVENT_LBUTTONDBLCLK:
-        print("Doble click botón izquierdo\n")
+    elif evento == cv2.EVENT_RBUTTONDBLCLK:
+        print("Doble click botón derecho\n")
         cv2.circle(img, (x,y), 3, color, -1)
     elif evento == cv2.EVENT_LBUTTONDOWN:
         coordenada_inicial = (x,y)
@@ -28,6 +24,7 @@ def EventoRaton(evento, x, y, flags,datos):
         print("Otro evento\n")
 
     print("Coordenadas: x=", x, ", y=", y, "\n")
+    print(color)
     #Refrescamos la imagen en pantalla.
     cv2.imshow("Imagen", img)
 
@@ -46,13 +43,9 @@ else:
     #Mostramos la imagen en pantalla.
     cv2.imshow("Imagen", img)
 
-    #  Asociamos la función de manejo de eventos a esta ventana.
-    #  Pasamos la imagen como argumento a la función. Tener en
-    #  cuenta la conversión a puntero void para poder realizar
-    #  el paso. Observar en la callback como se deshace la
-    #  conversión.
     color=(0,0,255)
     cv2.setMouseCallback("Imagen", EventoRaton)
+    
     #Variable en la que capturaremos la tecla pulsada.
     c=0
     #Creamos un bucle infinito, que sólo finalizará al pulsar Esc.
@@ -67,7 +60,7 @@ else:
             print("Color cambiado a rojo")
         if c == ord('b'):
             color =(255,0,0)    
-            print("Color cambiado a verde")
+            print("Color cambiado a azul")
         if c == ord('+'):
             thickness +=1 
             print("thickness aumentado a:",thickness)
@@ -80,7 +73,7 @@ else:
                 print("thickness decrementado a:",thickness)    
         #Imprimimos la tecla pulsada.
         print(c,"\n")
-        
+
 
     #Liberamos la ventana creada.
     cv2.destroyWindow("Imagen")

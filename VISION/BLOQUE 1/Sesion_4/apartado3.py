@@ -116,7 +116,7 @@ while True:
     if k == ord('f'):
         cv2.imwrite("captura%d.png" % i ,img)
         i+=1    
-        print("Color cambiado a verde")
+        print("Guardado del dibujo realizado")
     if k == ord("l"):
         dibujo = "Linea"
     if k == ord("r"):

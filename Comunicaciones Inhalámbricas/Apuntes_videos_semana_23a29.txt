@@ -1,0 +1,232 @@
+VIDEO 1:TIPOS DE MODELADO DE PROPAGACIÓN
+
+El modelado es util en dos contextos diferentes, pudiendo distinguir entre los tipos de
+modelado y entre su utilidad práctica.
+
+Modelado del canal a pequeña escala
+	Permite ver los efectos  de la viabilidad a pequeña escala del
+	canal sobre la señal.
+	Se usa para diseñar tecnologías de Tx/Rx que logren minimizar la
+	BER recibida en las condiciones de disponibilidad más adversas.
+
+Modelado del canal a gran-media escala:
+
+	Se usa para calcular el balance de potencias para planificar el enlace radio
+	de forma que la señal se reciba con el margen adecuado sobre el umbral de funcionamiento
+	definido por el receptor.
+
+Estudio del efecto del canal en la BER
+	Los efectos que alteran la BER son aquellos debidos al multitrayecto o al
+	efecto doppler.
+	A partir de las caracteristicas propias de estos dos modelso de desbanecimiento se caracterizan
+	dos modelos de canal
+		
+		Canales SUI: En base al perfil de retardo.
+		
+		Canales 3GPP: En base a la velocidad del receptor.
+	En general se simula el sistema Rx/Tx y se calcula la BER sobre cada modelo.
+
+Planificacion radio
+	A la hora de planificar un enáce radio debemos conocer las pérdidas a las que está
+	sometida la señal. Además, como las pçerdidas varían, nunca podemos afirmar que un sistem,a
+	funcione al 100% del tiempo ni al 100% de la cobertura.
+	Es por esto que se preapra un margen para asegurar un funcionamiento correcto durante un % de tiempo
+	deseados.
+
+	Los modelos a gran escala predicen las perdidas medias dependientes siempre de la 
+	distrancia y la frecuencia. El modelo a gran escala más simple es el de pérdidas 
+	por espacio libre.
+	
+	Los modelos a media escala predicen el margen que debe existir entre la potencia recibida y el
+	umbral del recptor. Este margen depende de si es un enlace punto a punto o uno punto a multipunto.
+
+	*Si es punto a punto: El receptor está fijo, y el margen se calcula en función del % de tiempo
+	 en el que queremos que el sistema funcione. Tipicamente 99.9%.
+	 Esto depende de la variabilidad temproa la  gran escala del tiempo, que deopende a su vez del terreno.
+
+	*Si es punto a multipunto: El receptor se mueve en un área de cobertura. En este caso el margen se calcula
+	 en función del porcentaje de ubicaciones en el que queremos que el sistema funcione. Tipicamente 99.9%
+	 En este caso, el entorno del Rx varia según se mueve siguiendo una variación gausiana. 
+	
+	A veces hay zonas de sombra que solo se pueden cubrir con un repetidor.
+
+Atenuacion y desvanecimiento en redes inalambricas
+
+	A gran escala, modelamos la atenuación, que será identica para todos los 
+	receptores situados a la misma distancia.
+	
+	A media escala, modelamos la variación lenta con el tiempo. Si el Rx está fijo, en funcion del 
+	terreno que lo rodea, y si se mueve en función de su posición.
+	
+	A pequeña escala, modelamos las variaciones rápidas a lo largo del tiempo. Que influyen a la vez en la señal
+	recibida.
+
+
+VIDEO 2: MODELADO A PEQUEÑA ESCALA
+
+El modelado a pequeña escala modela las variaciones rápidas de la señal.
+Las variaciones a pequeña escala son rápidas y muy profundas, por lo que no es posible solucionarla
+aumentando los márgenes del sistema
+
+Los fenomenos que las causan son:
+
+	El multitrayecto: Se debe a la falta de una señal dominante.
+
+	El efecto doppler: Se debe a la velocidad del 
+
+¿Qué ocurre en un canal multitrayecto?
+
+Cuando no hay una señal dominante, la propia señal recibida está formada por réplicas de la señal Tx llamadas multitrayectos, que se reciben
+desfasadas y con bajos niveles de potencia.
+Esto puede desencadenar en una interferencia entre símbolos, es decir, solapamiento (ISI)
+
+Para podelar el multitrayecto, se definen modelos de canal basados en tipos de terreno típicos para los que
+se calcula el perfil de retardo y el de potencia de los multitrayectos dados en la propagación.
+Tipicamente se consideran 3 multitrayectos. 	
+	- Perfil de retardos
+          Modela la respuesta al impulso del canal, es decir, si introducimos un impulso, a la salida tenemos tantos pulsos
+ 	  como multitrayectos tengamos.
+	  El retardo de los multitrayectos dependen de la distancia que recorre, por lo que los multitrayectos con mayor retardo llegan con menos
+	  nivel de potencia. 
+	
+	- Medidas de la dispersión de retardo
+	El retardo en exceso es en si una variable. La influencia de un determinado patron de multirayectos se puede 
+	caracterizar por los parámetros estadísticos de dicha variable.
+	Estos parametros son
+	
+		Retardo máximo del patron (TAU_m)
+
+		Dispersión de retardo o retardo RMS: Es la variación tipica de la variable retardo en exceso respecto de la media.
+	{Entiendo que el retardo en exceo es una varaible, la cual podemos determinar por sus parametros estadisticos }
+
+	El retardo de dispersión tipico es 1-5 microsegundos en ciudades grandes, 200-400milisegundos en suburbanas, y entre  10 y 50 nanosegundos en interiores.
+	Como conclusión a lo anterior, podemos afirmar que la dispersión aumenta al aumentar el número de edificios.Es decir, conforme hay mayor número de obstáculos
+	en el entorno del receptor.
+	Por otra parte, es mucho mayor en espacios abiertos, ya que ahi la potencia Tx es mayor y además la señal puede recorres caminos más
+	largos. 
+
+El efecto del mutitrayecto puede verse tanto en tiempo (produce ISI debido a la dispersión de los puntos, lo cual aumenta la BER)
+como en frecuencia (hace que el canal deje de ser plano, es decir, sea selectivo. Esto distorsiona la respuesta en frecuencia del canal)
+
+Comparando el ancho de banda de la señal y el ancho de banda de coherencia nos permite clasificar los canales.
+	
+	Si Bseñal<Bcoherencia es un  canal aproximadamente plano, los simbolos no se dispersan notablemente y no
+	se produce ISI.
+	Se puede ecualziar el canal. La BER es mayor que para el caso de un canal SIN MULTITRAYECTO.
+
+	Si el Bseñal>Bcoherencia, el canal es selectivo en frecuencia, los simbolos se dispersan notablemente y se producen ISI.
+	No es posible la comunicACIÓN.
+
+¿Qué es un canal movil?
+En estos canales la seña Rx es la suma de varias señales que recorren difernetes trayectos. En general, cuando el Rx se acercal al Tx, la frecuecnia
+de la señal Rx aumenta de forma proporiconal a la velocidad del receptor.Si se aleja disminuye en la misma proporicon. Esta variación depende tambien
+del angulo con el cual llega la onda al receptor.
+
+Ahora la portadora deja de ser una delta, por lo que en el tiempo la respuesta del canal ya no es constante. 
+La maxima dispersión doppler se da cuando el Rx se aleja/acerca en la misma direccion en que sale la onda.
+Por lo que usar banda ancha es un reto en comunicaciones móviles.
+
+Para ver como el efecto doppler afecta a una señal, debemos calcular el periodo de tiempo en el cual todos los pulsos ven el mismo canal.
+Este tiempo se llama tiempo de coherencia. Marca el periodo en el que la respuesta al impulso del canal está muy correlada.
+
+El efecto doppler se puede apreciar en el canal tanto en tiempo como en frecuencia. Em el tiempo hace que el canal varíe con el tiempo, dificultando la estimación del canal.
+En frecuencia se produce una dispersión que dificulta la detección de la portadora.
+Podemos categorizar los canales comparando el periodo de la señal y el tiempo de cohernecia.
+
+	Si el Tseñal<Tcoherencia: El canal es casi invariante durante la transmisión de un símbolo. Podemos considerar que el canal
+	es el mismo durante el tiempo de Tx del simbolo.El canal es lento
+	
+	Si el Tseñal>Tcoherente: El canal varia con el tiempo, por lo que los simoblos llegan distorsionados ya que el canal varía con el tiempo.El desbanecimiento
+	es tapido lo cual degenera la comunicacion.
+
+Para simular los modelos a pequeña escala, se modela el canal como uana Variable estadistica. Si es un canal NLOS SIN señal dominante varian según una distribución
+rayleigth, mientras que los LOS con linea de visión directa varian con una distribución Rician. 
+
+
+Efercto doppler y multirayecto a la veZ
+
+Como son efectos duales, pueden suceder a la vez, por lo que el canal es selectivo en el tiempo y la dispersión se da en la frecuencia.
+
+VIDEO 3: MODELADO A MEDIANA-GRAN ESCALA
+Los modelos a gran escala modelan las perdidas medias de la señal. Los canales radio se clasifican en 2 grandes grupos
+que pueden darse en cualquier comunicación inhalámbrica. Solo depende de si el usuario ve la estación base o no.
+
+	CANALES LOS (con vision directa):
+
+	CANALES NLOS (sin vision directa):
+Existen modelos generales y modelos exteriores.
+	Modelos macrocelulas: Se usan para distancias de cobertura mayores de 1Km. Parten de LOS al que le agregan unas pérdidas adicionales 
+	como los vistos en comunicaciones moviles (COST 231, oKUMURA-hATA)
+
+	Modelos picocélulas: Se aplica para zonas de cobertura menores a 1 Km. En función de las caracteriticas
+	de la celula se aplica un modelo LOS o NLOS. Se establece en la recomendación P.1411
+	
+	Modelos interiores: Se establece un modelo general dado por la recomendación P.1238 para el uso de planificaciones
+	rápidas.
+Modelo general
+
+El model ogeneral y más simple modela la atenuación como una variación exponencial en función de la distancia. Tomandose
+una distancia de referencia que varia para exteriores e interiores. Se requiere hacer medidas a dicha distancia para definir
+la constante L0.
+
+Es un modelado muy rápido, pero muy impreciso en los casos de interiores.
+
+Modelo bloqueo sombra
+
+Completa el modelo general añadiendo la variación a media escala con las ubicaciones. Esto permite su uso en la predicción
+de propagación en macrocélulas. 
+
+
+
+MODELOS A MEDIA ESCALA
+
+Modelan las variaciones lentas de la señal.
+Como la señal es una V.A, con gran escala obtengo la potencia media recibida, pero debemos asegurar de que su
+fluctuación NO AFECTE al funcionamiento del sistema.
+
+El modelo a media escala define precisamente este margen dentro del cual la potencia Rx se encuentre por encima del umbral
+en un % de tiempo elevado.
+El calculo es diferente para sistemas fijos y moviles.
+
+Sistemas fijos: El terreno no varia, por lo que el margen lo calculamos para ese entorno concreto. Se obtiene rapidamente
+en la recomendación P.530, y depende de un factor geoclimático, las alturas de las antena y de la longitud del enlace.
+En la planificación se suele incluir un margen de forma que el sistema funcione un 99.9%
+
+Sistema movil: Como el entorno varia a lo largo del tiempo, por lo que no en todas partes la seña recibida tendrá la misma calidad.
+Este efecto se llama desbanecimiento por sombra o "Shadowing", y varia segun una gausiana de distribucion tipica.
+Es gracias a esta gausiana que podemos calcular el umbral.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

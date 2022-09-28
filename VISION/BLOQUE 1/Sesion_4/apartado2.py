@@ -7,17 +7,17 @@ b = 0
 g = 0
 s = 1
 
-def nothing(x): #Necesitamos esta función aunque no haga nada
+def nothing(x): 
     global s
     s = cv2.getTrackbarPos(switch,'Imagen') 
 
-def red(x): #Necesitamos esta función aunque no haga nada
+def red(x): # Actualizo "color" con la variable de la barra roja
     global r
     r = cv2.getTrackbarPos('R','Imagen')
-def green(x): #Necesitamos esta función aunque no haga nada
+def green(x):# Actualizo "color" con la variable de la barra verde
     global g
     g = cv2.getTrackbarPos('G','Imagen')
-def blue(x): #Necesitamos esta función aunque no haga nada
+def blue(x): # Actualizo "color" con la variable de la barra azul
     global b
     b = cv2.getTrackbarPos('B','Imagen')
    
@@ -45,8 +45,6 @@ while(1):
         img[:] = 0
     else:
         img[:] = [b,g,r]
-    
-    print(img)
-     
+
    
 cv2.destroyAllWindows()
