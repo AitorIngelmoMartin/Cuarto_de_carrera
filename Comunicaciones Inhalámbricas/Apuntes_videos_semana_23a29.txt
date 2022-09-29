@@ -136,8 +136,8 @@ Podemos categorizar los canales comparando el periodo de la señal y el tiempo de
 	Si el Tseñal<Tcoherencia: El canal es casi invariante durante la transmisión de un símbolo. Podemos considerar que el canal
 	es el mismo durante el tiempo de Tx del simbolo.El canal es lento
 	
-	Si el Tseñal>Tcoherente: El canal varia con el tiempo, por lo que los simoblos llegan distorsionados ya que el canal varía con el tiempo.El desbanecimiento
-	es tapido lo cual degenera la comunicacion.
+	Si el Tseñal>Tcoherente: El canal varia con el tiempo, por lo que los simoblos llegan distorsionados.El desbanecimiento
+	es rapido, lo cual degenera la comunicacion.
 
 Para simular los modelos a pequeña escala, se modela el canal como uana Variable estadistica. Si es un canal NLOS SIN señal dominante varian según una distribución
 rayleigth, mientras que los LOS con linea de visión directa varian con una distribución Rician. 
@@ -155,13 +155,13 @@ que pueden darse en cualquier comunicación inhalámbrica. Solo depende de si el u
 
 	CANALES NLOS (sin vision directa):
 Existen modelos generales y modelos exteriores.
-	Modelos macrocelulas: Se usan para distancias de cobertura mayores de 1Km. Parten de LOS al que le agregan unas pérdidas adicionales 
+	1)Modelos macrocelulas: Se usan para distancias de cobertura mayores de 1Km. Parten de LOS al que le agregan unas pérdidas adicionales 
 	como los vistos en comunicaciones moviles (COST 231, oKUMURA-hATA)
 
-	Modelos picocélulas: Se aplica para zonas de cobertura menores a 1 Km. En función de las caracteriticas
+	2)Modelos picocélulas: Se aplica para zonas de cobertura menores a 1 Km. En función de las caracteriticas
 	de la celula se aplica un modelo LOS o NLOS. Se establece en la recomendación P.1411
 	
-	Modelos interiores: Se establece un modelo general dado por la recomendación P.1238 para el uso de planificaciones
+	3)Modelos interiores: Se establece un modelo general dado por la recomendación P.1238 para el uso de planificaciones
 	rápidas.
 Modelo general
 
@@ -195,37 +195,6 @@ En la planificación se suele incluir un margen de forma que el sistema funcione 
 Sistema movil: Como el entorno varia a lo largo del tiempo, por lo que no en todas partes la seña recibida tendrá la misma calidad.
 Este efecto se llama desbanecimiento por sombra o "Shadowing", y varia segun una gausiana de distribucion tipica.
 Es gracias a esta gausiana que podemos calcular el umbral.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
