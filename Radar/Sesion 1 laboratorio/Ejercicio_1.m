@@ -33,7 +33,7 @@ Resolucion_angular = ancho_haz;
 %     Por lo que usando la funcion ceil() podemos obtener el número entero
     n_celdas_rango  = ceil(Rango_max_matriz/Resolucion_en_distancia -1);
 %   Separacion_azimut
-     Separacion_filas = ((1/PRF)*giro_antena*360)/60;
+    Separacion_filas = ((1/PRF)*giro_antena*360)/60;
     n_celdas_acimut = ceil(Cobertura_acimut/Resolucion_angular);
 % APARTADO 3: Determine el tamaño de la celda de resolución del 
 % sistema en m 2 a 5 y 15 km
