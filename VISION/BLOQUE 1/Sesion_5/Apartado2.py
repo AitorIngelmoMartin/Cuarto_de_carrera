@@ -3,13 +3,12 @@
 ###########################################################
 
 import cv2
-import sys
+
 
 #Leemos la imagen
-img = cv2.imread(sys.argv[1])
+img = cv2.imread("Monedas.jpg")
 if img is None:
     print('Imagen no encontrada')
-    sys.exit(0)
 
 #Convertimos la imagen para asegurarnos que es en escala de grises
 img_gris=cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
