@@ -2,9 +2,7 @@
 #Segmentación por color (RGB)
 ############################################
 
-# coding: utf-8
 import numpy as np
-import sys
 import cv2
 
 #Función para atender a los eventos del ratón
@@ -22,14 +20,13 @@ def EventoRaton(evento, x, y, flags,datos):
 #Iniciamos aquí el programa
 
 # Cargar la imagen
-img = cv2.imread(sys.argv[1])
+img = cv2.imread("pokemon.png")
 if img is None:
-    print ('ERROR: Imagen '+ sys.argv[1]+' no existe\n')
-    sys.exit(0)
+    print ('ERROR: La imagen no existe\n')
 
     
 # Leemos el umbral para segmentar
-Umbral=int(sys.argv[2])
+Umbral=int(25)
 #Creamos una imagen vacía que nos sevirá después como referencia de color
 img_color = np.zeros(img.shape, np.uint8)
 #Creamos una ventana donde mostrar la imagen.
