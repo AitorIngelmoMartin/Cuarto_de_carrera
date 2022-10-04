@@ -135,3 +135,28 @@ SNR_blanco_radial=10*log10(Er(3)/No)
 [ruido_blancos]=blancos_matriz(Er,theta_R,vr,fila,columna,n_pulsos, ruido_blancos, f_portadora, PRF);
 
 figure(); imagesc(eje_x,eje_y,20*log10(abs(ruido_blancos))); title('Blanco estacionario+giro+radial')
+
+
+
+
+TEORIA
+
+
+El detector genera la matriz de ceros y uno a partir de la matriz de matlab de colorines.
+
+El detector decide entre 2 posibles hipótesis.
+	H1: Hay blanco presente (hipotesis alternativa)
+	H0: Blanco ausente (hipotesis nula)
+Al tener que elegir, tenemos 2 tipos de errores.
+	Probabilidad de decidir H0 cuando la cierta es H1 -> Probabilidad de pérdida P(D0|H1) =perdida /// Se suele trabajar con [ 1-P(D0|H1)
+	Probabilidad de decidir H1 cuando la cierta es H0 -> Probabilidad de falsa alarma
+
+En radar empleamos el criterio de Neyman-Pearson. Este criterio maximiza la probabilidad de detección manteniendo la probabilidad de falsa alarma
+menor que un número dado.
+Este número suele ser 10e-6. Aunque se suele usar 10e-4 a la salida del detector.
+
+Esto da los siguientes tipos de sistemas
+	Moving Target Indicator MTI
+	Moving Target Detector MTD
+
+
