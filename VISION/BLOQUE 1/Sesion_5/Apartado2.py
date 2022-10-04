@@ -4,7 +4,6 @@
 
 import cv2
 
-
 #Leemos la imagen
 img = cv2.imread("Monedas.jpg")
 if img is None:

@@ -1,9 +1,9 @@
 ###########################################################
-# Umbralización de imagenen en escala de gris con umbral fijo
+# Umbralización de imagenen en escala de gris con umbral varaible
 ###########################################################
 import cv2
 
-#Creamos un objeto de la clase video-captura
+#Creamos un objeto de la clase video
 cap = cv2.VideoCapture("movil.avi")
 
 #Captura el primer frame
@@ -30,7 +30,7 @@ while(cap.isOpened() and ret):
     concatenacion_horizontal_1 = cv2.hconcat([img_gris,mask])
 
     ret2, mask2=cv2.threshold(img_gris, Umbral_OTSU_inferior, Umbral_OTSU_superior, cv2.THRESH_BINARY+cv2.THRESH_OTSU)  
-    print("El valor de umbral seleccionado por Otsu esq:",ret2)
+    print("El valor de umbral seleccionado por Otsu es:",ret2)
     concatenacion_horizontal_2 = cv2.hconcat([img_gris,mask2])
 
     concatenacion_final        = cv2.vconcat([concatenacion_horizontal_1,concatenacion_horizontal_2])
