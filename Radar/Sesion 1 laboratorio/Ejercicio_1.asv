@@ -77,7 +77,7 @@ figure();
 mesh(X,Y, transpose(20*log10(abs(ruido(1:50,1:50)))));
 figure(); 
 mesh(X,Y, transpose((abs(ruido(1:50,1:50)))));
-ruido2 = randn(n_celdas_rango,n_celdas_acimut) *1i.*rand(n_celdas_rango,n_celdas_acimut);
+ruido2 = randn(n_celdas_rango,n_celdas_acimut) *1i.*rand(n_celdas_rango,n_celdas_acimut)
 
 % Caractirazión estadistica del ruido
 % figure();hist(ruido2(:),200);title("Ruido2")
@@ -124,11 +124,11 @@ Acimut_blanco_estacionario=10; %grados
 % ARREGLO VATIABLES
 R_resolucion = Resolucion_en_distancia;
 separacion_filas = Separacion_filas;
-n_pulsos = Numero_pulsos;
+n_pulsos
 
-columna_blanco_estacionario=ceil(R_blanco_estacionario/R_resolucion);
+columna_blanco_estacionario=ceil(R_blanco_estacionario/R_resolucion)
 
-fila_blanco_estacionario=ceil(Acimut_blanco_estacionario/separacion_filas);
+fila_blanco_estacionario=ceil(Acimut_blanco_estacionario/separacion_filas)
 
 [ruido_blancos]=blancos_matriz(Er_estacionario,theta_R,vr,fila_blanco_estacionario,columna_blanco_estacionario,n_pulsos, ruido_blancos, f_portadora, PRF);
 
@@ -140,11 +140,11 @@ Er_blanco_8km=constante/(8000^4);
 
 % La fila es la misma
 
-columna_blanco_8km=ceil(8000/R_resolucion);
+columna_blanco_8km=ceil(8000/R_resolucion)
 
 [ruido_blancos]=blancos_matriz(Er_blanco_8km,theta_R,vr,fila_blanco_estacionario,columna_blanco_8km,n_pulsos, ruido_blancos, f_portadora, PRF);
 
-SNR_blanco_8km=10*log10(Er_blanco_8km/N0);
+SNR_blanco_8km=10*log10(Er_blanco_8km/No)
 
 % Blanco con movimiento radial
 
@@ -164,6 +164,6 @@ fila_blanco_radial=fila_blanco_estacionario
 
 [ruido_blancos]=blancos_matriz(Er_blanco_radial,theta_R,v_radial,fila_blanco_estacionario,columna_blanco_radial,n_pulsos, ruido_blancos, f_portadora, PRF);
 
-SNR_blanco_radial=10*log10(Er_blanco_radial/N0);
+SNR_blanco_radial=10*log10(Er_blanco_radial/No)
 
 figure(); imagesc(eje_x,eje_y,20*log10(abs(ruido_blancos))); title('Blanco estacionario+giro+radial')
