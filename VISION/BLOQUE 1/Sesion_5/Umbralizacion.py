@@ -1,41 +1,46 @@
 ###########################################################
 # Umbralización de imagenen en escala de gris con umbral fijo
 ###########################################################
-
 import cv2
 
 #Creamos un objeto de la clase video-captura
-video = "video.mp4"
-cap = cv2.VideoCapture(video)
+cap = cv2.VideoCapture("movil.avi")
 
-#Leemos la imagen
-img = cv2.imread("Monedas.jpg")
-if img is None:
-    print('Imagen no encontrada')
+#Captura el primer frame
+ret, frame = cap.read()
 
-while(cap.isOpened()):
-    #Capturo el primer frame
-    ret, frame = cap.read()
+#Obtenemos la tasa de fps del objeto
+fps = cap.get(cv2.CAP_PROP_FPS)
+
+#Variable time en ms
+time=int(1000/fps) 
+
+Umbral_OTSU_inferior = 150
+Umbral_OTSU_superior = 255
+#Comprueba si se ha inicializado correctamente la captura (cap.isOpened()) y
+#si el frame se ha leído correctamente (ret).
+while(cap.isOpened() and ret):
+
     #Convertimos la imagen para asegurarnos que es en escala de grises
     img_gris=cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) 
 
     #Umbralizamos la imagen y obtenemos la máscara y el umbral usado
-    mask=cv2.threshold(img_gris, 150, 255, cv2.THRESH_BINARY)  
-    
-    # Muestro el "frame"
-    cv2.namedWindow('ImagenGris', cv2.WINDOW_AUTOSIZE )
-    cv2.imshow('ImagenGris', img_gris)   
-    cv2.namedWindow( 'Umbralizacion', cv2.WINDOW_AUTOSIZE )
-    cv2.imshow("Umbralizacion", mask)
+    ret, mask=cv2.threshold(img_gris, 150, 255, cv2.THRESH_BINARY)  
+   
+    concatenacion_horizontal_1 = cv2.hconcat([img_gris,mask])
 
+    ret2, mask2=cv2.threshold(img_gris, Umbral_OTSU_inferior, Umbral_OTSU_superior, cv2.THRESH_BINARY+cv2.THRESH_OTSU)  
+    print("El valor de umbral seleccionado por Otsu esq:",ret2)
+    concatenacion_horizontal_2 = cv2.hconcat([img_gris,mask2])
 
-#Mostramos el resultado 
-"""
-cv2.namedWindow('ImagenGris', cv2.WINDOW_AUTOSIZE )
-cv2.imshow('ImagenGris', img_gris)   
-cv2.namedWindow( 'Umbralizacion', cv2.WINDOW_AUTOSIZE )
-cv2.imshow("Umbralizacion", mask)
-"""
+    concatenacion_final        = cv2.vconcat([concatenacion_horizontal_1,concatenacion_horizontal_2])
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+    # Muestro la el video 
+    cv2.namedWindow('threshold', cv2.WINDOW_AUTOSIZE )
+    cv2.imshow('threshold', concatenacion_final)   
+
+    # Sistema para cerrar el video a mano
+    if cv2.waitKey(time) & 0xFF == ord('q'):
+        break
+    #Captura frame a frame    
+    ret, frame = cap.read()
