@@ -5,14 +5,13 @@ from skimage import measure
 import numpy as np
 import imutils
 import cv2
-import sys
 
 # Load the image,
 try:
-    image=cv2.imread(sys.argv[1], cv2.IMREAD_UNCHANGED);
+    image=cv2.imread("imagenes\lights.png", cv2.IMREAD_UNCHANGED)
 except:
     print("ERROR al abrir la imagen\n")
-    sys.exit(1)
+
 
 
 # Convert the image to grayscale, blur it and threshold
@@ -26,7 +25,7 @@ thresh = cv2.erode(thresh, None, iterations=2)
 thresh = cv2.dilate(thresh, None, iterations=4)
 
 #Connected component analysis
-labels = measure.label(thresh, neighbors=8, background=0)
+labels = measure.label(thresh, background=0)
 mask = np.zeros(thresh.shape, dtype="uint8")
 
 
