@@ -3,6 +3,7 @@
 ###############################################
 
 import cv2
+import numpy as np
 Umbral_1 = 50
 Umbral_2 = 200
 def red(x): # Actualizo "color" con la variable de la barra roja
@@ -31,6 +32,13 @@ cv2.imshow('BordesImg',img)
 cv2.createTrackbar('inferior','BordesImg',50,1000,red)
 cv2.createTrackbar('superior','BordesImg',200,1000,green)
 
+# Concatenar imagen gris y RGB [https://www.geeksforgeeks.org/numpy-array-shape/]
+rows_rgb, cols_rgb, channels = img_original.shape # 470 filas, 626 columnas y 3 Canales.
+rows_gray, cols_gray = bordes.shape               # 470 filas, 626 columnas.
+rows_comb = max(rows_rgb, rows_gray)              # Esta linea fija las filas con el mayor valor.
+cols_comb = cols_rgb + cols_gray                  # Como quiero una imagen al lado de la otra, debo sumar sus columnas.
+
+Concatenacion = np.zeros(shape=(rows_comb, cols_comb, channels), dtype=np.uint8) #Definimos la nueva matriz a partir de lo anterior.
 
 while(1):
     img = cv2.imread("Politecnica1.png")
@@ -44,9 +52,12 @@ while(1):
     img[bordes==255]=(0,255,0)
     cv2.imshow('BordesImg',img)
 
-    """Representar mapa de borde y con la de borde a la vez"""
-    concatenacion =  cv2.hconcat([img_original,img])
-    cv2.imshow('Final',concatenacion)
+    # Concateno las imagenes
+    Concatenacion[:rows_rgb, :cols_rgb]  = img_original
+    Concatenacion[:rows_gray, cols_rgb:] = bordes[:, :, None]
+
+    #Muestro imagen 
+    cv2.imshow('Combinacion',Concatenacion)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
