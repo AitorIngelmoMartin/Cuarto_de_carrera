@@ -4,37 +4,40 @@
 
 import cv2
 import numpy as np
+
 Umbral_1 = 50
 Umbral_2 = 200
-def red(x): # Actualizo "color" con la variable de la barra roja
+
+def modificacionSuperior(x): # Actualizo "inferior" con la variable de la barra 
     global Umbral_1
     Umbral_1 = x
-    print(x)
     pass
-def green(x):# Actualizo "color" con la variable de la barra verde
+def modificacionInferior(x):# Actualizo "superior" con la variable de la barra
     global Umbral_2
     Umbral_2 = x
-    print(x)
     pass
 
+#Leemos la imagen
 img = cv2.imread("Politecnica1.png")
 if img is None:
     print('Imagen no encontrada')
 img_original = img.copy()
-bordes = cv2.Canny(img,50,200,apertureSize = 3)
 
-cv2.imshow('Original',img)
-cv2.imshow('Bordes',bordes)
-img[bordes==255]=(0,255,0)
-cv2.imshow('BordesImg',img)
+#Aplicamos el metodo de Canny
+bordes = cv2.Canny(img,Umbral_1,Umbral_2,apertureSize = 3)
+
+cv2.imshow('Original',img)     # Se muestra la imagen original.
+cv2.imshow('Bordes',bordes)    # Se muestra la imagen solo con bordes en blanco y negro.
+img[bordes==255]=(0,255,0)     # Dibuja los bordes en verde.
+cv2.imshow('BordesImg',img)    # Se muestra la imagen con bordes superpuestos de color verde.
 
 #Declaro las barras
-cv2.createTrackbar('inferior','BordesImg',50,1000,red)
-cv2.createTrackbar('superior','BordesImg',200,1000,green)
+cv2.createTrackbar('inferior','BordesImg',Umbral_1,1000,modificacionSuperior)
+cv2.createTrackbar('superior','BordesImg',Umbral_2,1000,modificacionInferior)
 
-# Concatenar imagen gris y RGB [https://www.geeksforgeeks.org/numpy-array-shape/]
-rows_rgb, cols_rgb, channels = img_original.shape # 470 filas, 626 columnas y 3 Canales.
-rows_gray, cols_gray = bordes.shape               # 470 filas, 626 columnas.
+# Concatenar imagen gris y RGB 
+rows_rgb, cols_rgb, channels = img_original.shape # filas, columnas y Canales.
+rows_gray, cols_gray = bordes.shape               # filas, columnas.
 rows_comb = max(rows_rgb, rows_gray)              # Esta linea fija las filas con el mayor valor.
 cols_comb = cols_rgb + cols_gray                  # Como quiero una imagen al lado de la otra, debo sumar sus columnas.
 
