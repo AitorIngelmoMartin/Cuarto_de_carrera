@@ -1,0 +1,29 @@
+
+
+ESPECTRO ENSANCHADO
+	Transmite la misma capacidad en mayor ancho de banda.
+
+	Eb/No = 10 - 10log(Bss/Bw)=0dB
+	Cuanto mas ensancho tengo menor Eb/No, al ser mas solido frente a interferencias.
+
+	FORMULA SHANON
+		Define la curva que marca el máximo valor de capacidad que podemos transmitir.
+	C= B*10log(1+SNR)
+		     SNR = Eb*Rb/NO*Bn
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
