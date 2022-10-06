@@ -11,7 +11,28 @@ ESPECTRO ENSANCHADO
 	C= B*10log(1+SNR)
 		     SNR = Eb*Rb/NO*Bn
 
+  	   bpsk qpsk 16qam	
+	Rb    1 1 1
+	Bw    1 1/2 1/4
+	Rb/Bw 1 2 4
 
+
+
+DSSS
+Multiplico una secuencia con otra con un periodo mucho menor llamada chip. Esto ocurre en banda base. 
+Esto es lo que entra al modulador.
+
+En recepción volvemos a multiplicar por esta señal chip.
+
+La clave es que tanto Rx/Tx conozcan esta señal chiop. Por esto son secuencias pseudoaleatorioas, ya que
+deben conocerlas para poder reconstruir.
+
+Otra cosa importante es que si llega una señal retardada, al llegar al Rx y multiplciar por chip lo que
+hacemos es que llegue atenuada, ya que todo lo demás es "zona plana".
+
+En inhalambricas usamos espectro ensanchado para Tx, NO para compartir el medio.
+
+Zigbee correla con todas las secuecnias que tenga, y la que de 1 es la palabra lanzada.
 
 
 
