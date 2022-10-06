@@ -1,0 +1,16 @@
+
+
+Criterio de neyman-pearson
+	Maximiza la Pd para Pfa menor o igual a un valor deseado.
+
+
+La probabilidad de deteccion es la probabilidad de decidir en favor de que hay blanco cuando 
+realmente lo hay.
+
+La variable aleatoria que modela la celda en la que hay un blanco 
+
+	sqrt(2*ER)*cos(ThetaR)+jsqrt(2*ER)*sin(ThetaR)
+
+Una VB compleja aleatoria es en si una VB en dos dimensiones.
+
+	Cuando no hay blanco la media es 0, por lo que si tengo 
