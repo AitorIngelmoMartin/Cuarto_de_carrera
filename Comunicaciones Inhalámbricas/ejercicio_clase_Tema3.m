@@ -22,3 +22,46 @@ F_final   = 2480;
 
 B_entre_portadoras = 5; %Mhz
 
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+% CASO 1 Y 2
+Numero_simbolos = [2, 4];
+
+Rb       = [1, 2];
+roll_off = 0.2;
+FEC      = 0.6;
+Bits_por_chip=11;
+Rchip = Bits_por_chip*Rb;
+
+BW    = (1+roll_off)*(Rchip./log2(Numero_simbolos))*(1/FEC)
+Tchip = (1./Rchip) 
+
+% CASO 3
+Numero_simbolos = 2;
+Rb = 11;
+Rchip = Rb;
+BW    = (1+roll_off)*(Rchip./log2(Numero_simbolos))*(1/FEC)
+Tchip = (1./Rchip) 
+% CASO 4
+Numero_simbolos = 2;
+Rb = 5.5;
+Rchip = 2*Rb;
+BW    = (1+roll_off)*(Rchip./log2(Numero_simbolos))*(1/FEC)
+Tchip = (1./Rchip) 
+% Conclusion, estos cambios no me cambian BW
+
+% % % % % % % % % % % % % % % % % % % % % % % % Ejercicio 3
+
+% 40 canales 2 Mhz,
+% Calcular periodo de simbolo en LE clase 1 y 2
+Rb = [1, 2];%Mbps
+Rs = Rb;
+Numero_simbolo = 2;
+
+Ts = 1./Rs %En micro segundos
+
+f_salto = 1600;% Saltos por segundo||Comparado con Rb es lento
+
+
+
