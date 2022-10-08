@@ -1,1 +1,78 @@
 1) ¿Qué tipo de segmentación se utiliza? ¿Cuál es el valor del umbral?
+	La tecnica de segmentación utilziada es la de detección de bordes. En esta técnica
+	primero se umbraliza mediante la imagen deseada para posteriormente detectar bordes
+	en ella.
+	En el caso de la práctica, primero se pasa la imagen a escala de grises, se le aplica un
+	desenfoque gausiano y se pasa el resultado por una umbralización binaria.
+	
+	El umbral utilizado se situa por encima de 200 y por debajo de 255.
+2. ¿Qué procesos morfológicos se utilizan?
+	En el código de la practica se emplean un par de operadores morfológicos previos
+	a la detección de bordes. El objetivo de esto es eliminar ruido o falsos positivos
+	que tenemos tras realizar la umbralización.
+
+	En concreto, primer se realiza una erosión, que busca eliminar precisamente valrores
+	devueltos de la umbralización débiles. Es decir, elimina falsos positivos pequeños.
+	A continuación, se realiza una dilatación con el doble de iteraciones para reforzar
+	los valores "comidos" por la erosión.
+3) Visualice la máscara de segmentación (mask) y la imagen de resultado (img) usando/sin usar
+el procesado morfológico para ver las diferencias. Para visualizar los resultados sin incluir el
+procesado morfológico, comente las líneas cv2.erode y cv2.dilate del script. ¿Cuáles son las
+diferencias apreciables?
+
+	Si eliminamos los procesos morfoógicos y pasamos a la etapa de detección de bordes, el resultado
+	que obtenemos presenta más puntos que antes.
+	Sim embargo, estos nuevos puntos detectados no presentan ningún valor al tratarse de reflejos, ruido
+	o de ser valores en la imagen con tonos similares al detectado.
+	Es decir, sin emplear operadores morfológicos el resultado empeora notablemente.
+
+4) Si aumentamos el número de iteraciones en el proceso de dilatación, ¿qué ocurre en la
+imagen final de resultado?
+	Tras cambiar el número de iteraciones de la dilatación al doble (ahora son 8), obtenemos que
+	la máscara que aplicamos para la detección de bordes ha cambiado a nuestro favor.
+	Esto es así ya que al haberla dilatado mas, ciertos valores indeseados que se detectaban antes
+	han acabado por fusionarse, dando como resultado una detección casi perfecta de las bombillas.
+
+5) ¿Qué entorno de vecindad se utiliza en el etiquetado de componentes conectadas? ¿Qué
+almacenan la variable labels y mask? ¿Qué diferencia hay entre ambas variables?
+
+	El entorno de vecindad (o parámetro "neighbors") es opcional. Como no se ha definido, se usa
+	el por defecto. Según la documentación, en caso de no declarar esta variable se emplea la de 
+	"connectivity ", la cual es tambien opcional.
+	Como tampoco está declarada, se emplea su valor por defecto, es decir, se emplea una conectividad
+	completa.
+	
+	*La variable Labels almacena un array con los píxeles "vecinos". Es decir, asigna un número
+	entero a cada pixel, de forma que aquellos con mismo valor que estén proximos entre sí se 
+	puedan identificar rápidamente. Según el código de la práctica, el 0 se reconoce como fondo 
+	negro.
+	*La variable "mask" almacena los puntos agrupados anteriormente en "labels" que NO sean negro.Esto
+	permite tener una matriz donde únicamente se muestren todos los conjuntos de vecinos diferentes.
+	Según está estructurado el código, se van a representar todos los puntos en blanco, por lo que a
+	partir de "mask" estamos tratando todos los puntos diferentes a 0.
+
+	Una diferencia principal radica en el tipo de dato, mask si puede ser representado como una imagen, mientras 
+	que Labels no al ser una matriz de enteros.
+
+6) ¿Para qué sirven las funciones cv2.findContours4 y contours.sort_contours?
+Para comprobar la funcionalidad de contours.sort_contours pruebe a comparar la
+imagen resultante comentando/sin comentar la correspondiente línea del script.
+	cv2.findContours se dedica, valga la reduncancia, a detectar contornos. Los contornos se pueden definir
+	como una curva que une todos los puntos continuos a lo largo de un perímetro que tienen el mismo color
+	o intensidad.
+  	
+	contours.sort_contours		
+
+
+7. Como puede comprobar en la imagen resultante de la ejecución, hay algunos objetos
+indeseados (ruidosos) de pequeño tamaño. En la ejecución puede comprobar en la consola el
+número de píxeles de cada objeto. ¿Cuáles son sus tamaños? Teniendo en cuenta que
+queremos eliminar los objetos indeseados, establezca un filtro de tamaño haciendo una
+pequeña modificación en el código. Obtenga la nueva imagen resultante con el conteo de
+objetos correcto.
+8. Como puede comprobar en la imagen resultante de la ejecución, la ordenación de los
+contornos se hace para que aparezcan numerados los objetos de izquierda a derecha. Pruebe
+a modificar la llamada a la función contours.sort_contours5
+introduciendo como
+modificador otros modos de ordenación, como por ejemplo method="right-to-left"
+o method="top-to-bottom".
