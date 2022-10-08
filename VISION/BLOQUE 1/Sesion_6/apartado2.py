@@ -15,7 +15,7 @@ kernel = np.ones((5,5),np.uint8)
 for iteraciones in range(4):
     #fotogramas/frame%d.png" % cuenta ,concatenacion)
     erosionada = cv2.erode(img,kernel,iteraciones)
-    cv2.imwrite("Output/erosion%d.png" %iteraciones ,erosionada)
+    cv2.imwrite("Output/erosion%d.png" %(iteraciones+1) ,erosionada)
     img = erosionada    
 
 #VARIACION KERNEL
@@ -27,9 +27,17 @@ for iteraciones in range(3):
     kernel = np.ones((valor_kernel,valor_kernel),np.uint8)
     print("El tamaño del kernel es:",valor_kernel)
     erosionada = cv2.erode(img_original,kernel,iteraciones)
-    cv2.imwrite("Output/kernel%d.png" %iteraciones ,erosionada)
+    cv2.imwrite("Output/kernel%d.png" %(iteraciones+1) ,erosionada)
 
-        
+#DILATACION
+
+kernel = np.ones((5,5),np.uint8)
+#Realizamos la erosión 4 veces seguidas
+for iteraciones in range(3): 
+    #fotogramas/frame%d.png" % cuenta ,concatenacion)
+    erosionada = cv2.dilate(img,kernel,iteraciones)
+    cv2.imwrite("Output/dilatacion%d.png" %(iteraciones+1) ,erosionada)
+    img = erosionada        
 
 
 

@@ -1,0 +1,1 @@
+1) ¿Qué tipo de segmentación se utiliza? ¿Cuál es el valor del umbral?

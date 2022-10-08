@@ -1,0 +1,7 @@
+ Al hacer la conversión al espacio de color HSV y realizar desde el mismo la segmentación, se puede comprobar que la selección de 
+colores que concuerden con el seleccionado es más acertada, ya que da menos falsos positivos. En las imágenes de ejemplo he utilizado
+ 50 como umbral para los canales H,S y V. 
+
+Como comentario adicional, en la foto “funcionamiento Opcional 2.jpg” al seleccionar el amarillo, también se marcan zonas de color rojo.
+Esto es así debido a que el amarillo surge de la combinación del rojo con el verde, por lo que, al estar evaluando cada 
+pixel, eventualmente marcará como positivos pixeles que tengan cierto grado de rojo. 

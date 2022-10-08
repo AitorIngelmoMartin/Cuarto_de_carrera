@@ -17,6 +17,7 @@ time=int(1000/fps)
 
 Umbral_OTSU_inferior = 150
 Umbral_OTSU_superior = 255
+
 #Comprueba si se ha inicializado correctamente la captura (cap.isOpened()) y
 #si el frame se ha leído correctamente (ret).
 while(cap.isOpened() and ret):
