@@ -3,8 +3,8 @@ clear;clc;close all;
 k=1.38054e-23;% (J/K)
 T0=290; % K
 c=3e8; %m/s velocidad de la luz
-BW_senal=1e6; 
-ancho_haz=1.2; %grados
+BW_senal  = 1e6; 
+ancho_haz = 1.2; %grados
 giro_antena=26; %rpm
 PRF=1950;%Hz
 Rango_max_matriz=30*1000; %m;       60*1000/1.85200; %m
