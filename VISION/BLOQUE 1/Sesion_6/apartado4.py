@@ -37,6 +37,8 @@ for label in np.unique(labels):
      labelMask = np.zeros(thresh.shape, dtype="uint8")
      labelMask[labels == label] = 255
      numPixels = cv2.countNonZero(labelMask)
+     if numPixels<1000:
+        labelMask = 0
      # if the number of pixels in the component is sufficiently
 	 # large, then add it to our mask of "large blobs"
      print('label:%d, numPixels:%d\n'%(label,numPixels))
@@ -53,7 +55,7 @@ cv2.imshow("Mask", mask)
 # right
 cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,	cv2.CHAIN_APPROX_SIMPLE)
 cnts = imutils.grab_contours(cnts)
-cnts = contours.sort_contours(cnts, method="left-to-right")[0]
+cnts = contours.sort_contours(cnts, method="right-to-left")[0]
 
 # Draw results 
 # loop over the contours

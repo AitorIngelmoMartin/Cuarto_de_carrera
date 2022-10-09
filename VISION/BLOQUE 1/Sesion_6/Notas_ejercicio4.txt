@@ -61,7 +61,7 @@ imagen resultante comentando/sin comentar la correspondiente línea del script.
 	como una curva que une todos los puntos continuos a lo largo de un perímetro que tienen el mismo color
 	o intensidad.
   	
-	contours.sort_contours		
+	contours.sort_contours es una función que devuelve una lista con todos los contornos ordenados.	
 
 
 7. Como puede comprobar en la imagen resultante de la ejecución, hay algunos objetos
@@ -70,6 +70,28 @@ número de píxeles de cada objeto. ¿Cuáles son sus tamaños? Teniendo en cuen
 queremos eliminar los objetos indeseados, establezca un filtro de tamaño haciendo una
 pequeña modificación en el código. Obtenga la nueva imagen resultante con el conteo de
 objetos correcto.
+
+	Manteniendo el cambio en el numero de iteraciones a 8, tenemos un total de
+	6 objetos detectados. Estos objetos tienen el siguiente número de pixeles.	
+
+	label:1, numPixels:3716
+
+	label:2, numPixels:2649
+
+	label:3, numPixels:1931
+
+	label:4, numPixels:1810
+
+	label:5, numPixels:1768
+
+	label:6, numPixels:340
+	
+	Para hacer el filtro, simplemente podemos aplciar que si la variable "numPixeles" es menor
+	a 1000, directamente ese label sea 0 para que no lo muestre.
+
+		     if numPixels<1000:
+       			 labelMask = 0
+
 8. Como puede comprobar en la imagen resultante de la ejecución, la ordenación de los
 contornos se hace para que aparezcan numerados los objetos de izquierda a derecha. Pruebe
 a modificar la llamada a la función contours.sort_contours5
