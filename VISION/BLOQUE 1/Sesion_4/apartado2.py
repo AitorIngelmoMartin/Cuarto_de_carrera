@@ -9,17 +9,17 @@ s = 1
 
 def nothing(x): 
     global s
-    s = cv2.getTrackbarPos(switch,'Imagen') 
+    s = x
 
 def red(x): # Actualizo "color" con la variable de la barra roja
     global r
-    r = cv2.getTrackbarPos('R','Imagen')
+    r = x
 def green(x):# Actualizo "color" con la variable de la barra verde
     global g
-    g = cv2.getTrackbarPos('G','Imagen')
+    g = x
 def blue(x): # Actualizo "color" con la variable de la barra azul
     global b
-    b = cv2.getTrackbarPos('B','Imagen')
+    b = x
    
 #Crear una imagen de fondo negro y una ventan
 img=np.zeros((480,640,3), np.uint8)

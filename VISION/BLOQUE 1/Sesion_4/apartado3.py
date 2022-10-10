@@ -13,20 +13,20 @@ i = 0
 dibujo = []
 def limpiar(x): #Necesitamos esta función aunque no haga nada
     global s
-    s = cv2.getTrackbarPos(switch,'Paint') 
+    s = x
 
 def nada(x):
     global grosor
-    grosor = cv2.getTrackbarPos("Grosor",'Paint') 
+    grosor = x
 def red(x): #Necesitamos esta función aunque no haga nada
     global r
-    r = cv2.getTrackbarPos('R','Paint')
+    r = x
 def green(x): #Necesitamos esta función aunque no haga nada
     global g
-    g = cv2.getTrackbarPos('G','Paint')
+    g = x
 def blue(x): #Necesitamos esta función aunque no haga nada
     global b
-    b = cv2.getTrackbarPos('B','Paint')
+    b = x
 
 #Función para atender a los eventos del ratón
 def EventoRaton(evento, x, y, flags,datos):
