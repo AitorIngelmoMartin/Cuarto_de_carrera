@@ -1,0 +1,16 @@
+                                                                              11 Oct 2022 20:37:24
+Facility-Facility1-To-Satellite-Satellite2:  Access Summary Report
+
+
+Facility1-To-Satellite2
+-----------------------
+                  Access        Start Time (UTCG)           Stop Time (UTCG)        Duration (sec)
+                  ------    ------------------------    ------------------------    --------------
+                       1    27 Sep 2022 10:00:00.000    28 Sep 2022 22:00:00.000        129600.000
+
+Global Statistics
+-----------------
+Min Duration           1    27 Sep 2022 10:00:00.000    28 Sep 2022 22:00:00.000        129600.000
+Max Duration           1    27 Sep 2022 10:00:00.000    28 Sep 2022 22:00:00.000        129600.000
+Mean Duration                                                                           129600.000
+Total Duration                                                                          129600.000

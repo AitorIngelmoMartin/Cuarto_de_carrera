@@ -1,0 +1,16 @@
+<?xml version = "1.0" standalone = "yes"?>
+<TimelineLine_Prefs STK_version = "11.2.0">
+    <Views Type = "Content">
+        <ContentView Name = "Scenario Availability">
+            <Row ClassName = "Scenario" ComponentName = "AvailabilityIntervals" DisplayName = "Scenario2 AvailabilityIntervals" IsDefaultName = "True" IsExpanded = "False" IsGroup = "False" IsHidden = "False" Path = "/Application/STK/Scenario/Scenario2" Type = "IntervalList">
+                <Interval Name = "Scenario2 AvailabilityIntervals" StartTime = "27 Sep 2022 10:00:00.000" StopTime = "27 Sep 2023 10:00:00.000" />
+            </Row>
+            <Row ClassName = "Access" ComponentName = "AccessIntervals" DisplayName = "Facility-Facility1-To-Satellite-Satellite2 AccessIntervals" IsDefaultName = "True" IsExpanded = "False" IsGroup = "False" IsHidden = "False" Path = "Access:/Application/STK/Scenario/Scenario2/Facility/Facility1;/Application/STK/Scenario/Scenario2/Satellite/Satellite2" Type = "IntervalList">
+                <Interval Name = "Facility-Facility1-To-Satellite-Satellite2 AccessIntervals" StartTime = "27 Sep 2022 10:00:00.000" StopTime = "28 Sep 2022 22:00:00.000" />
+            </Row>
+        </ContentView>
+    </Views>
+    <Views Type = "Time">
+        <TimeView FullViewRulerStartTime = "0.000000" FullViewRulerStopTime = "0.000000" GlobalIntervalComp = "AnalysisInterval" GlobalIntervalCompPath = "/Application/STK/Scenario/Scenario2" GlobalStartOffset = "0.000000" GlobalStartTime = "27 Sep 2022 10:00:00.000" GlobalStopOffset = "0.000000" GlobalStopTime = "27 Sep 2023 10:00:00.000" MaxFullViewTime = "0.000000" MinFullViewTime = "0.000000" Name = "Scenario Analysis Period" ViewportStartTime = "0.000000" ViewportStopTime = "0.000000" />
+    </Views>
+</TimelineLine_Prefs>

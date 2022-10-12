@@ -1,0 +1,45 @@
+stk.v.11.0
+WrittenBy    STK_v11.2.0
+BEGIN Access 
+        Scenario/Scenario2/Facility/Facility1
+        Scenario/Scenario2/Satellite/Satellite2
+
+    IsComputed               Yes
+    UpdateOnReference        Yes
+    DupIsDifferent           No
+    UIOrderReversed          No
+    UITimePeriod             Custom
+    CustomTimeInterval
+		BEGIN	EVENTINTERVAL
+				BEGIN Interval
+					Start	27 Sep 2022 10:00:00.000000000
+					Stop	28 Sep 2022 22:00:00.000000000
+				END Interval
+				IntervalState	Explicit
+		END	EVENTINTERVAL
+
+    UseLightTimeDelay        Yes
+    ClockHost                Base
+    TimeSense                Transmit
+    AberrationType           Annual
+    TimeDelayConvergence     5.000000e-05
+    MaxTimeStep              3.600000e+02
+    MinTimeStep              1.000000e-02
+    TimeConvergence          5.000000e-03
+    AbsValueConvergence      1.000000e-14
+    RelValueConvergence      1.000000e-08
+    DetectEventsUsingSamplesOnly No
+	BEGINUserList 
+        0.000000 129600.000000
+	ENDUserList 
+    Show                     Yes
+    Inherit                  Yes
+    ShowIV                   Yes
+    ShowLineGfx              Yes
+    ShowHiliteGfx            Yes
+    LineWidth                1.000000e+00
+    BEGIN  Crdn
+    END  Crdn
+
+END Access
+
