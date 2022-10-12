@@ -1,8 +1,9 @@
 import cv2
-
+import numpy as np
 #PIVC (Procesado de Imagen y Visión por Computador) 
 #Modulo 2-Practica 1 - Detector Viola & Jones
 
+colores = []
 #Funcion para pintar los bounding boxes detectados
 def draw_rects(img, rects, color):
     for x1, y1, x2, y2 in rects:
@@ -10,9 +11,8 @@ def draw_rects(img, rects, color):
 
 
 def detector(img_color):
-    global t
+    global colores
     print(">>> Cargando imagen...")
-    t = cv2.getTickCount()
     #Tratamos la imagen
     img_gray = cv2.cvtColor(img_color, cv2.COLOR_RGB2GRAY)
     img_gray = cv2.equalizeHist(img_gray)#Mejora la apariencia de la imagen
@@ -24,41 +24,43 @@ def detector(img_color):
         
     #Llamada al detector               
     print(">>> Detectando caras...")
-
     
     rects =  cascade.detectMultiScale(
         img_gray,
-        scaleFactor=1.1,
-        minNeighbors=5,
+        scaleFactor  = 1.1,
+        minNeighbors = 5,
         minSize=(30, 30),
         flags = cv2.CASCADE_SCALE_IMAGE
     )
     
     if len(rects) == 0:
-        t = (cv2.getTickCount() - t)/cv2.getTickCount()
         return img_color
     print(rects)
-    rects[:, 2:] += rects[:, :2]   
-    print("El numero de caras detectadas es:",len(rects))
-    img_out = img_color.copy()
-    draw_rects(img_out, rects, (0, 255, 0))
-    t = (cv2.getTickCount() - t)/cv2.getTickCount()
-    return img_out
+    for (x, y, w, h) in rects:
+        color = tuple(np.random.choice(range(256), size=3))
+        colores.append(color)
+        cv2.rectangle(img_color, (x, y), (x + w, y + h), (int(color[0]),int(color[1]),int(color[2])), 2)
+    print(colores[0])
+    print(colores[0][2])
+    return img_color
+    
+#Creamos el objeto capturador de video
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+
+while(True):
+ # Capture frame-by-frame
+    ret, frame = cap.read()
+    # Our operations on the frame come here
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    
+    copia_frame = frame.copy()
+    # Display the resulting frame
+    img_out = detector(copia_frame)
+    cv2.imshow('resultado_deteccion', img_out)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        #cv2.imwrite("Captura_detectada.png",img_out)
+        break
    
-img_color=cv2.imread('test1.jpg')
-if img_color is None:
-    print('Imagen no encontrada\n')
 
-img_out = detector(img_color)
-cv2.imwrite('resultado_deteccion.jpg', img_out)
-
-#Muestro el tiempo que ha tardado en detectar las caras
-print("El tiempo de ejecución han sido:",t,"segundos")
-
-
-#Visualizar caras detectadas
-cv2.imshow('Caras detectadas',img_out)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
-
