@@ -1,0 +1,13 @@
+Los mapeadores son 2^(numero de entradas) * numero moduladores¿
+
+El numero complejo que sale del mapador es el que me permite determinar el simbolo de la constelación.
+
+-
+Hasta la entrada del Serie/paralelo tengo X numero de portadora.
+-
+
+Cada numero complejo que sale de la IFFT, se debe a la contribución de todas las muestras en frecuencia. Esta salida son
+muestras en el tiempo.
+Sacamos las muestras cad Ts.Es decir, cada Ts llegan 16 muestras.
+
+16Ts hacen un Trom.
