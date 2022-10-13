@@ -19,7 +19,7 @@ def detector(img_color):
     print(img_gray.shape)
 
     # Carga del modelo de deteccion (previamente entrenado)
-    cascade_fn = 'haarcascades/haarcascade_frontalface_alt.xml'
+    cascade_fn = 'haarcascades/haarcascade_profileface.xml'
     cascade = cv2.CascadeClassifier(cascade_fn)    
         
     #Llamada al detector               
@@ -29,8 +29,8 @@ def detector(img_color):
     rects =  cascade.detectMultiScale(
         img_gray,
         scaleFactor=1.1,
-        minNeighbors=5,
-        minSize=(30, 30),
+        minNeighbors=2,
+        minSize=(20, 20),
         flags = cv2.CASCADE_SCALE_IMAGE
     )
     
@@ -42,10 +42,10 @@ def detector(img_color):
     print("El numero de caras detectadas es:",len(rects))
     img_out = img_color.copy()
     draw_rects(img_out, rects, (0, 255, 0))
-    t = (cv2.getTickCount() - t)/cv2.getTickCount()
+    t = (cv2.getTickCount() - t)/cv2.getTickFrequency() 
     return img_out
    
-img_color=cv2.imread('test1.jpg')
+img_color=cv2.imread('test4.jpg')
 if img_color is None:
     print('Imagen no encontrada\n')
 

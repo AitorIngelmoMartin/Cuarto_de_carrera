@@ -30,13 +30,14 @@ def detector(img_color):
         img_gray,
         scaleFactor  = 1.1,
         minNeighbors = 5,
-        minSize=(30, 30),
-        flags = cv2.CASCADE_SCALE_IMAGE
+        minSize = (30, 30),
+        flags   = cv2.CASCADE_SCALE_IMAGE
     )
     
     if len(rects) == 0:
         return img_color
     print(rects)
+
     for (x, y, w, h) in rects:
         cv2.rectangle(img_color, (x, y), (x + w, y + h), (int(colores[vueltas][0]),int(colores[vueltas][1]),int(colores[vueltas][2])), 2)
         vueltas+=1
@@ -53,21 +54,25 @@ out    = cv2.VideoWriter('videoAitorIngelmo.avi',fourcc, 60.0, (640,480)) # Intr
 
 #Creamos aleatoriamente 20 caras
 for i in range(20):
-        color = tuple(np.random.choice(range(256), size=3))
-        colores.append(color)
+    color = tuple(np.random.choice(range(256), size=3))
+    colores.append(color)
 
 while(True):
- # Capture frame-by-frame
+    # Captura frame a frame
     ret, frame = cap.read()
-    # Our operations on the frame come here
+    # Trabajamos con los frames
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     
     copia_frame = frame.copy()
-    # Display the resulting frame
+    # LLamo al detector
     img_out = detector(copia_frame)
+
+    # Muestro el resultado
     cv2.imshow('resultado_deteccion', img_out)
+
     # Guardo el "frame"
     out.write(img_out)
+
     if cv2.waitKey(1) & 0xFF == ord('q'):
         #cv2.imwrite("Captura_detectada.png",img_out)
         break
