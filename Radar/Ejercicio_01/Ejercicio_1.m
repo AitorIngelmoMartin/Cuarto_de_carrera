@@ -34,7 +34,7 @@ Resolucion_angular = ancho_haz;
     n_celdas_rango  = ceil(Rango_max_matriz/Resolucion_en_distancia -1);
 %   Separacion_azimut
     Separacion_filas = ((1/PRF)*giro_antena*360)/60;
-    n_celdas_acimut = ceil(Cobertura_acimut/Resolucion_angular);
+    n_celdas_acimut  = ceil(Cobertura_acimut/Resolucion_angular);
 % APARTADO 3: Determine el tamaño de la celda de resolución del 
 % sistema en m 2 a 5 y 15 km
 %           Arco = Radio* ancho_haz*pi/180 * Resolucion_en_distancia [en radianes]
@@ -49,7 +49,7 @@ Area_arco_15_km = 15000 *(ancho_haz*pi/180) *Resolucion_en_distancia;
 
 % APARTADO 4: Calcule la zona iluminada por el radar correspondiente a la muestra de la matriz situada en la
 % columna 150 y en la fila 200.
-    columna = 150;
+    columna = 300;
     Distancia_a_columna = Resolucion_en_distancia * columna;
     Area_arco_columna  =  Distancia_a_columna *(ancho_haz*pi/180) *Resolucion_en_distancia;
 % APARTADO 5: Calcule el número de pulsos que se reciben de un blanco en 

@@ -39,15 +39,15 @@ No=1;
 
 % Generación de tres matrizes radar correspondientes a 3 vueltas de antena
 % consecutivas bajo H0. 
-% Es decir, la hipotesis nula es cierta = solo hay
-% muestras de ruido
+% Es decir, la hipotesis nula es cierta = solo hay muestras de ruido
 
 % Matriz de ruido base ||| el ",3" es para tenerlo en 3D
 ruido=sqrt(No)*randn(num_filas,num_columnas,3)+1i*sqrt(No)*randn(num_filas,num_columnas,3);
 
 eje_x=(1:num_columnas)*R_resolucion/1000; %Eje de distancias en km
 
-eje_y=(1:num_filas)*separacion_filas; %Eje de acimut en grados
+eje_y=(1:num_filas)*separacion_filas;     %Eje de acimut en grados
+
                                                 %(:,:,1) es todas las columnas y filas, de la loncha 1
 figure(); imagesc(eje_x,eje_y, 20*log10(abs(ruido(:,:,1))))
 
@@ -56,7 +56,7 @@ figure(); imagesc(eje_x,eje_y, 20*log10(abs(ruido(:,:,1))))
 
 Pfa = [1e-3,1e-4];
 
-umbrales =gaminv(1-Pfa,1,2*No);
+umbrales = gaminv(1-Pfa,1,2*No);
 
 ruido_detectado_menos3 = (abs(ruido).^2)>umbrales(1);
 
@@ -64,7 +64,7 @@ ruido_detectado_menos4 = (abs(ruido).^2)>umbrales(2);
 
 figure(); imagesc(eje_x,eje_y,ruido_detectado_menos3(:,:,2));colormap("gray");
 figure(); imagesc(eje_x,eje_y,ruido_detectado_menos4(:,:,2));colormap("gray");
-% Como sabemos is en estas imagenes tengo las probabilidades introducidas?
+% ¿Como sabemos si en estas imagenes tengo las probabilidades introducidas?
 % Una solucion sencilla es la repeticion de montecarlo. Que es repetir
 % varias veces el experimento.
 

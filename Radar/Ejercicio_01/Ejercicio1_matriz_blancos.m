@@ -23,13 +23,13 @@ R_resolucion  = c/(2*BW_senal)
 Az_Resolucion = ancho_haz
 
 % Tamaño matriz
-separacion_columnas= R_resolucion
-num_columnas= ceil(Rango_max_matriz/separacion_columnas)-1
-separacion_filas= giro_antena*360/PRF/60
-num_filas= ceil(Cobertura_acimut/separacion_filas)
+separacion_columnas = R_resolucion
+num_columnas        = ceil(Rango_max_matriz/separacion_columnas)-1
+separacion_filas    = giro_antena*360/PRF/60
+num_filas           = ceil(Cobertura_acimut/separacion_filas)
 
 %Número de pulsos recibidos por blanco en cada exploración
-Tiempo_iluminacion=ancho_haz*60/(giro_antena*360)
+Tiempo_iluminacion = ancho_haz*60/(giro_antena*360)
 
 n_pulsos= Tiempo_iluminacion*PRF
 
