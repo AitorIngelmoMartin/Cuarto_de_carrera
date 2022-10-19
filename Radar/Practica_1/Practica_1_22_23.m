@@ -175,11 +175,11 @@ grid;
 
 Pd_teorica_menos2 = 1-ncx2cdf(Umbrales(1),2,2*Er);
 Pd_teorica_menos4 = 1-ncx2cdf(Umbrales(2),2,2*Er);
-
-plot(SNR,Pd_teorica_menos2,"o"); 
+figure();
+plot(SNR,Pd_teorica_menos2,"o"); hold on;
 plot(SNR,Pd_teorica_menos4,"s");
-
-legend("Pf_{Fa}=10^{-2} estimación","Pf_{Fa}=10^{-4} estimación","Pf_{Fa}=10^{-2} teorica","Pf_{Fa}=10^{-4} teorica");
+legend("Pf_{Fa}=10^{-2} teorica","Pf_{Fa}=10^{-4} teorica");
+% legend("Pf_{Fa}=10^{-2} estimación","Pf_{Fa}=10^{-4} estimación","Pf_{Fa}=10^{-2} teorica","Pf_{Fa}=10^{-4} teorica");
 
 
 %% Aplicamos un filtro integrador a la matriz de ruido
@@ -196,9 +196,8 @@ title("Intensidad del ruido")
 figure(); imagesc(eje_x,eje_y,10*log10(abs(ruido_integrado)).^2);
 title("Intensidad del ruido integrado")
 % Los valores próximos se parecen mucho. Esto es porque aparece una
-
 % correlacionn a lo largo de las columnas.
-% 
+ 
 % ruido_integrado_maspulsos =nfilter(ruido,[5*n_pulsos 1],fun);
 % 
 % 
@@ -229,7 +228,7 @@ Er  = 10.^(SNR/10);
 
 Pfas     = [1e-2, 1e-4];
 % Umbrales = gaminv(1-Pfas,1,2*No);
-Umbrales_integrador = gaminv(1-Pfas,1,2*No*n_pulsos);
+Umbrales_integrador = gaminv(1-Pfas,1,2*No*n_pulsos); % El 1 es nº_gaussianas/2
 %Estimador de la probabilidad para el detector coherente
 %IQ(real-imaginaria/modulo-fase) seguiodo del detector envolvente de ley
 %cuadrático
@@ -260,8 +259,8 @@ end      %del for de Pfas
 
 figure(); plot(SNR,Pd_estimada_integrador(:,1),'o'); xlabel('SNR(dB)'); % Pillo la columna 1 porque es la primera Pf
 ylabel('P_D');
-hold on;
-plot(SNR,Pd_estimada_integrador(:,2));
+% hold on;
+plot(SNR,Pd_estimada_integrador(:,2),"s");
 legend("Pf_{Fa}=10^{-2}","Pf_{Fa}=10^{-4}","Pf_{Fa}=10^{-2} integrador", "Pf_{Fa}=10^{-4} integrador");
 grid;
 
@@ -274,6 +273,8 @@ figure(), imagesc(eje_x,eje_y,abs((ruido_integrado).^2) > Umbrales_integrador(1)
 figure(), imagesc(eje_x,eje_y,abs((ruido_integrado).^2) > Umbrales_integrador(2));colormap('gray')
 
 load("matrices_vueltas.mat")
+% Aparece en el espacio de trabajo las variabes ruido_blancvos (la matriz
+% de los 3 blancos) y ruido_blancos_vuelta2 (segunda vuelta con las nuevas posiciones de los blancos)
 
 
 ruido_blancos_integrado         = nlfilter(ruido_blancos,[n_pulsos 1],fun);
@@ -284,14 +285,13 @@ ruido_blancos_vuelta2_integrado = nlfilter(ruido_blancos_vuelta2,[n_pulsos 1],fu
 figure(), imagesc(eje_x,eje_y,abs((ruido_blancos_vuelta2_integrado).^2) > Umbrales_integrador(1));colormap('gray')
 
 % % % APARTADO GRANDE 6
-
+% Estimacion filtro integrador
 P  = n_pulsos;
 
 Vr=150; %Velocidad del blanco expresada en km/h
 omega_doppler=2*2*pi*f_portadora*1e9* Vr *1000/(3600*3e8)
 f_doppler=omega_doppler/(2*pi);
-senal=exp(1i*(omega_doppler/PRF)*(0:200)); % generamos 201 muestras porque P son
-% muy pocas
+senal=exp(1i*(omega_doppler/PRF)*(0:200)); % generamos 201 muestras porque P son muy pocas
 senal_norm=senal/(sum(abs(senal).^2));
 Espectro_senal=(fft(senal_norm));
 plot((0:200)*PRF/201,abs(Espectro_senal))
@@ -324,10 +324,55 @@ plot(W,abs(H),'r')
 % atenuada del filtro y es eliminado en el coherente, pero el incoherente
 % le deja vivir.
 
-%% Prueba del integrador incoherente
+%% Estudio del integrador incoherente
 
 Umbrales_integrador_incoherente = gaminv(1-Pfas, n_pulsos,2*No);
 
 ruido_blancos_integrado_incoh = nlfilter(abs(ruido_blancos).^2, [n_pulsos 1],fun);
 
-figure(); imagesc(eje_x,eje_y,ruido_blancos_integrado_incoh>Umbrales_integrador_incoherente(1))
+figure(); imagesc(eje_x,eje_y,ruido_blancos_integrado_incoh>Umbrales_integrador_incoherente(1));colormap('gray');
+
+%  ¿De donde salen estos umbrales?
+%   Tenemos 2*15 gaussianas al cuadrado. Es decir, tenemos el sumatorio de
+%   i = 1 (gaussiana Medoa 0 variaza 1)subI
+
+Pd_estimada_integrador = zeros(length(Er),length(Pfas));
+
+for valor_Pfa=1: length(Pfas)
+    
+     for valor_SNR=1:length(SNR)
+         
+         ruido_Pd = randn(n_pulsos,10000)+1i*randn(n_pulsos,10000);
+         blanco   = sqrt(2*Er(valor_SNR))*exp(1i*pi/5)*exp(1i*(pi/4)*(0:(n_pulsos-1))).'; %Es un blanco estacionario
+         
+         fd = (pi/4)*PRF/(2*pi);
+         
+         ruido_blanco_Pd   = ruido_Pd+repmat(blanco,1,10000); %Sumo al ruido base el blanco
+
+         %aplicamos el filtro integrador a la salida del detector de
+         %envolvente de ley cuadrática con abs2. 
+         ruido_blanco_integrado = sum(abs(ruido_blanco_Pd).^2); %Matriz fila de la suma de las columnas.
+
+         salida_comparador = ruido_blanco_integrado>Umbrales_integrador_incoherente(valor_Pfa);
+
+         Pd_estimada_integrador(valor_SNR,valor_Pfa) = sum(salida_comparador,'all')/numel(salida_comparador);
+
+     end %del for de SNR
+end      %del for de Pfas
+
+figure();
+plot(SNR,Pd_estimada_integrador(:,1),'-'); xlabel('SNR(dB)');ylabel('P_D');
+hold on;
+plot(SNR,Pd_estimada_integrador(:,2),".-");
+legend("Pf_{Fa}=10^{-2}","Pf_{Fa}=10^{-4}","Pf_{Fa}=10^{-2} integrador", "Pf_{Fa}=10^{-4} integrador");
+grid;
+% El incoherente va a ser mejor, siempre y cuando NO haya doppler
+% En incoherente, para una pfa -2 tenemos una snr de 8.5.
+% En coherente de 15 pulsos tenemos que la SNR baja a -3.5.
+% La mejora es 8.5--3.5 = Reduzco la SNR 12dB por lo que podemos detectar
+% erl blanco más lejos, o un blanco que refleje mucho más a la mísma
+% distancia. Tambien podemos bajar la Ptx para la mísma distancia, ya que
+% se va a poder detecrar.
+
+% Si la deteccion es incoherente, para 10-2, estamos entorno a 0.5 dB. Lo
+% que implica uma mejora de 9 dB.
