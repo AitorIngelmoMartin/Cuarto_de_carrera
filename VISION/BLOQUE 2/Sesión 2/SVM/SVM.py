@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 from sklearn.datasets import load_svmlight_file
 import time
-
+"""
 def get_data(file_name):
     data = load_svmlight_file(file_name)
     return np.float32(data[0].todense()), np.int32(data[1])
@@ -93,3 +93,4 @@ print("Tiempo consumido: ",elapsed_time)
 cv.imshow('SVM Simple Example', image)
 cv.waitKey()
 cv.destroyAllWindows()
+"""
