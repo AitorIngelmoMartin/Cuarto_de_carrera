@@ -161,6 +161,10 @@ if __name__ == '__main__':
     #cv.imshow('digits_deskew',cm.mosaic(25,digits2[:]))
     samples = preprocess_hog(digits2)
 
+    #Extracción del número de muestras
+    print("El número total de muestras usadas es:",samples.shape[0])
+
+
     train_n = int(0.9*len(samples))
     cv.imshow('test set', cm.mosaic(25, digits[train_n:]))
         
@@ -176,7 +180,7 @@ if __name__ == '__main__':
     cv.imshow('KNearest test', vis)
 
     print('training SVM...')
-    model = SVM(C=1, gamma=1)
+    model = SVM(C=2.6918003852647123, gamma=5.3836007705294255)
     #model = SVM(C=2.69, gamma=5.38)
     model.train(samples_train, np.int32(labels_train))
     vis = evaluate_model(model, digits_test, samples_test, labels_test)

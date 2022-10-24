@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 from sklearn.datasets import load_svmlight_file
 import time
-"""
+
 def get_data(file_name):
     data = load_svmlight_file(file_name)
     return np.float32(data[0].todense()), np.int32(data[1])
@@ -26,8 +26,8 @@ svm.setTermCriteria((cv.TERM_CRITERIA_MAX_ITER, 100, 1e-6))
 #Elección del kernel
 svm.setKernel(cv.ml.SVM_LINEAR)
 #svm.setKernel( cv.ml.SVM_RBF)
-svm.setGamma(0.0001)
-svm.setC(100)
+svm.setGamma(0.00001)
+svm.setC(150)
 
 
 ######################################################################
@@ -66,9 +66,9 @@ thickness = -1
 i=0
 for P in trainingData:
     if labels[i] == 1:
-        cv.circle(image, (P[0,0], P[0,1]), 5, (255, 255, 255), thickness)
+        cv.circle(image, (int(P[0,0]), int(P[0,1])), 5, (255, 255, 255), thickness)
     else:
-        cv.circle(image, (P[0,0], P[0,1]), 5, (0, 0, 0), thickness)
+        cv.circle(image, (int(P[0,0]), int(P[0,1])), 5, (0, 0, 0), thickness)
     i+=1
 
 #Vectores soporte
@@ -81,7 +81,7 @@ else:
 print('\nVectores Soporte\n',sv)
 
 for i in range(sv.shape[0]):
-    cv.circle(image, (sv[i,0], sv[i,1]), 6, (0, 0, 255), thickness)
+    cv.circle(image, (int(sv[i,0]), int(sv[i,1])), 6, (0, 0, 255), thickness)
 
 
 
@@ -93,4 +93,3 @@ print("Tiempo consumido: ",elapsed_time)
 cv.imshow('SVM Simple Example', image)
 cv.waitKey()
 cv.destroyAllWindows()
-"""

@@ -1,0 +1,223 @@
+
+Espectro de visión
+	El ser humano puede percibir colores entre 480 y 780. Estas lambdas corresponden
+	al ultravioleta e infrarojo respectivamente.
+Ojo humano
+	El ojo humano está compuesto por 3 elementos principales
+		Cornea y cristalino: Enfocan la escena
+	
+		Iris y pupila: Controla la cantidad de la luz que entra al interior
+		
+		Retina: Contiene celulas receptoras a la luz. Hay un total de 2
+		células, conos (3) para la vision diurna y bastones (1) para la nocturna.
+Cuantificacion en escala de grises
+	Usamos 8 bits, lo que da 255 niveles. Por convenio empleamos 0 para el negro y 255 para el blanco.
+
+	Podemos usar 4 ibits en lugar de 8. Esto restrigne  el modelo a 16 niveles. De nuevo
+	el 0 es negro y el 15 blanco.
+
+Imagenes a color
+	Hay 3 tipos de conos
+		L: Se usan para el color rojo.
+		M: Se usan para el color verde.
+		S: Se usan para el azúl.
+	Hay un tipo de bastón. Se usa para visualizar niveles bajos de intensidad.
+
+Definicion del color
+	El color se percibe como una combinación RGB. Se han estandarizado las longitudes
+	de onda del rojo verde y azul para estimular los receptores del ojo de forma diferente.
+
+	Para tener definido un color empleamos los colores primarios, su brillo (intensidad)
+	tono (longitud de onda predominante) y saturacion (cantidad de blanco)
+
+	El tono y la saturacion definen la cromatidad. Esto nos permite definir el diagrama
+	de cromaticidad.
+Espacios de color
+	Nos permiten estandarizar la forma de representacion de los colores
+		Basados en los colores primarios:
+			RGB: Monitores
+			CMY: Impresoras a color
+		Basados en luminancia
+			YIQ y del estilo que empiezan por Y. Video y fotos.
+
+		Basados en la percepción del color por el hombre
+			HSI y HSV.
+Formatos RGB:
+	24 bits: Es el más común. 8R 8G 8B
+	32 bits: Mas eficiente. Tiene 8 bits libres. 8R 8G 8B 8A(alfa = transparencia)
+	16 bits: Equipos con pocos recursos gráficos. 5R 5G 5B 1 libre. O 5R 6G 5B.
+	3 bits: sólo 8 posibles colores 1R 1G 1B.
+Espacio HSV
+	Esta basado en el modelo de percepcion de color del hombre. 	
+		H: Tono
+		S: saturacion
+		V: intensidad
+Conclusiones de los espacios de color
+	RGB: Modelo orientado al HW. Menos complejidad computacional. No hay conversion entre
+	espacios de color.
+	
+	YIQ y derivados con Y: Vienen de la TV analógica. Empleados en sistemas audiovisuales.
+	
+	HSV: Modelo más empleado  en procsado de imagenes.
+
+Propiedades de las imágenes
+	Básicas:
+		Dimensiones: Ancho y alto en pixeles
+		
+		Espacio de color
+			BN un canal. Imagenes en blanco y negro
+			RGB 3 canales. Imagenes en color
+			RGBA 4 canales. Color con informacion de transparencia
+		Profundidad de bits: Se mide em bits por píxel [bpp]
+		
+		Tamaño en memoria: Anch x Alto x Canales x bpp.
+
+		Tamaño del archivo: Estándar de compresión de la imagen.
+
+		Resolución: Relación entre la dimensión de la imagen y el tamaño de impresión medido en ppp-
+	Para fotografías:
+		Formato EXIF‌cluye información añadida por la cámara de fotos
+
+Compresión de vídeo digital
+	Compresion de imagen: Compresión basadaa en la redundancia espacial
+	Compresion de video: Compresion basada en la redundancia temporal: Solo se codifica lo que
+			     cambia de un frame a otro.
+
+	Compensacion de movimiento: Parte de un fotograma nuevo puede estar con el anterior.	
+	Estara generalmente en una posición diferente. Podemos codificar el desplazamiento asociado a cada bloque.
+	Es necesario codificar también el error.
+		Procedimiento
+			Dividimos el fotograma en bloques
+			Buscamos el bloque en el fotograma anterior. El más parecido tendrá menor error-
+			Codificamos el vector movimiento
+			Codificamos el error entre los bloques. Si el error es grande, se codifica el bloque.
+Tipos de imagenes en la compresion
+	Imagenes I: Son imágenes de referencia. Se comprimen de forma independiente.
+	
+	Imagenes P: Son imagenes predictivas. Se obtienen a partir de compensación de movimiento de
+	imagenes I o P anteriores.
+	
+	Imagenes B: Son imagenes bidireccionales obteidas a partir de imagenes I o P anteriores y posteriores
+	usando la interpolación.
+
+Grupo de imagenes GOP
+	Las imagenes I/P/B se repiten de forma periódica en una secuencia de video. El GOP
+	es el patrón periódico en que se divide la secuencia.
+	Parámetros: 
+		N es la longitud del GOP.
+		M es el número de imágenes B entre dos imágenes I o P.
+	El codificador puede forzar una imagen I en caso de deteccion de un cambio de escena en la secuencuia.
+Características
+	Las I ocupan mas espacio que las P y B. Se codifican de forma independiente.
+	
+	Las B ocupan menos que las P e I. Se obtienen a partir de imagenes anteriores y posteriores gracias
+	a la interpolacion. No se emplean para predecir nuevos fotogramas. Se requiere menos precision.
+
+Parametros del GOP
+	Si N y M altos: Pocas imágenes codificadas de forma independiente. Muchas optenidas por compensacion
+	de movimiento.
+	Alta compresión, baja calidad.
+	
+	Si N y M bajos: Baja compresión, alta calidad.
+
+
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+SEGMENTACION DE IMAGENES
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+El objetivo de la segmentacion es dividir una imagen en sus regiones.
+Podemos hacerlo por discontinuidad o por similutid.
+
+A: Segmentacion por bordes------------
+	Los bordes se definen como pixeles en los que se produce un cambio brusco de intensidad.
+	Esto permite detectar los contornosde los objetos.
+	
+	El borde ideal es una funcion escalon, pero el real es una funcion rampa.
+		
+	La primera deribada detecta la presencia de un borde. El signo de la 2a derivada determina
+	en que lado del borde (claro u oscuro) está el pixel.
+
+	La deteccion por bordes es muy sensible a ruido en la imagen.
+	Proceso:
+		Suavizado de imagen para reducir ruido
+		Deteccion de puntos candidatos
+		Localizacion de bordes, es decir, seleccionar puntos de borde verdadero
+	Existe un método por gradiente. Se aproximan el gradiente a una imagen o varias 
+	máscaras de convolución.
+	Las máscaras de roberts es 2x2. La de Prewitt o Sobel es 3x3.
+Umbralizavion
+	Seleccionamos los píxeles con magnitud de gradiente mayor que un unbral T.
+
+Metodo de Canny:
+	Es uno de los detectores de borde más robusto. 
+	Objetivos:
+		Minimizar el número de falsos positivos.
+	
+		Obtener una buena localización de los bordes.
+
+		Respuesta mínima: No identifica multiples pixeles de donde hay 1 solo.
+	Se usa como función de detección la derivada de una Gaussiana.
+	Inconveniente: Ajuste de parámetros.
+	
+	Pasos
+		1) Convolucio de la imagen con filtro gausiano para reducir ruido
+		
+		2) Se calcula el gradiente de la imagen: matriz de modulo M y matriz
+		de direccion. Los pixeles con alto valor de módulo indican grandes
+		variaciones de intensidad.
+		
+		3) Supresión de no máximos: se eliminan (igualan a 0) en M los píxeles
+		que no son máximos locales en la dirección del gradiente.
+		
+		4) Doble umbralización (T1 y T2) para eliminar falsos bordes (falsos
+		positivos). Consigue bordes conexos.
+
+B: Segmentacion por color------------
+	El objetivo es agrupar regiones de pixeles con colores similares. L umbralizacion
+	detecta pixeles en una determinada región del espacio de color fijada mediante umbralizacion.
+
+C: Segmentacion en regiones---------
+
+
+	Dividir y unir (Split & Merge): tiene en cuenta tanto el color (intensidad) como la posición para agrupar. Es un proceso lento y
+	poco controlable. Consiste en dos fases:
+		1) Dividir (split): proceso recursivo que parte de la imagen total y
+		va subdividiéndola en regiones cuadradas más pequeñas mientras
+		no se cumplan criterios de homogeneidad en cada región.
+		Finaliza cuando todas las regiones son homogéneas.
+		2) Unir (merge): une regiones adyacentes si cumplen criterios de
+		homogeneidad. Finaliza cuando no hay posibilidad de más
+		uniones.
+
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+OPERADORES MORFOLÓGICOS
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+	
+Objetivo: modifican las características de una imagen en función de su topología: además de considerar el nivel de
+intensidad de un píxel tienen en cuenta su relación con otros píxeles.
+	Utilidades:
+		– Pre-procesamiento de imágenes: eliminación de ruido, simplificación de formas.
+		– Destacar estructura de objetos (extraer su contorno, rellenado de regiones, 
+		adelgazamiento y engrosamiento, esqueleto y poda, etc.)
+	Aplicación:
+		– Imágenes binarias o en niveles de gris.
+
+Está la erosión, Dilatación y la apertura (erosión seguida de dilatación)
+
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+VISION POR COMPUTADOR
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+Detector Viola Jones
+	Es un clasificador fuerte formado a partir de una combinacion lineal de clasificadores debiles
+	El algoritmo AdBOOST se encarga de seleccionar los parametro alfa y los weak learnesrs
+
+	Haar features
+	Son caracteristicas visuales usadas para la deteccion de rostros.
+
+	Proceso aprendizaje AdaBoost
+		1) Seleccion del clasificador débil
+		2) Ajustador de pesos alfa
+		3) Incorporar clasificador débil al clasificador fuerte
+		4) vuelta al paso 1.
