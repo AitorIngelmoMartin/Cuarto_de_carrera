@@ -1,10 +1,15 @@
 clc;clear;
 
 
-cam = webcam
+cam = webcam(1)
 
 
-
+vid = videoinput('winvideo',1, 'YUY2_640x480');
+set(vid, 'FramesPerTrigger', Inf);
+set(vid, 'ReturnedColorspace', 'rgb');
+% vid.FrameRate =30;
+vid.FrameGrabInterval = 1;  % distance between captured frames 
+start(vid)
 
 % % Create a cascade detector object.
 % faceDetector = vision.CascadeObjectDetector();
