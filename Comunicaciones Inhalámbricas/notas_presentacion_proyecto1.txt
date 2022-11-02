@@ -1,0 +1,15 @@
+RAYLEIGH
+
+	Anchura de la campana lo marca la varianza. En las fotos es igual.
+	
+	La media marca el valor central de la campana.
+	
+	Si aumentamos la potencia, la camapa en mas gruesa.
+
+	El modulo del canal tiene de hecho forma rayleigh en el caso de media nula. Esta forma depende de la varianza real e imaginaria.
+	Y tiene como propiedad que su cuadrado es una exponencial.	
+
+	NO es deseable porque no es determinista. Por lo que el margen de valores en recepción es bastante amplio al
+	no tener una seguridad.
+	
+	
