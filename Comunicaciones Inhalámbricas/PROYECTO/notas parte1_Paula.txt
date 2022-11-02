@@ -1,0 +1,33 @@
+--> RAYLEIGH. Se caracteriza porque la potencia del canal va a la varianza y nada a la media. Desde el punto de vista determinista es malo porque todo 
+lo que te llega es variable. x ej recibes entre +-4, tengo mayor margen.
+Esto es bueno desde el punto de vista de propagacion es el peor de los escenarios porque no hay nada fijo a lo que agarrarnos.
+
+DE QUE DEPENDE LA ANCHURA DE LA CAMPANA DE GAUSS, depende de la varianza, como tienen igual varianza es igual.
+
+¿si tuviera mayor potencia? la campana seria mas gruesa, todo lo que esta concentrado de diluye en mas valores.
+
+¿como es el modulo? sigue una forma rayleigh, cuando la media es nula. depende de la sigma de las partes reales e imaginarias 
+-Modulo al cuadrado: forma exp -. 
+
+¿param que modificamos? si queremos que siga siendo una rayleigh podemos modificar la varianza(potencia), no la media.
+
+
+--> RICIAN. media real dif de 0 y im 0, y la varianza sigue siendo variable
+¿como reparto la potencia entre la varianza y la media? con el factor k, un k porximo a 0 tendemos a meterlo todo en la varianza, y cuando tiende a infinito
+lo meto todo en la media que seria un canal gaussiano. Rician es el mejor cuando tiende a infinito, Rician, nos sirve para todo porque tambien puede 
+comportarse como un Rayleigh. No puede ser que tengamos una varianza alta y una media alta. (ESCENARIO IDEAL K DISTINTO DE 0 QUE TIENDA A INFINITO).
+Cuanto mas estrecho sea la forma menos potencia y menos varianza.
+
+-Modulo como k tiende a infito es una campana. (en rayleigh , rayleigh)
+- Intensidad tienes una rayleigh (en la rayleigh, es una exponencial)
+
+--> RETARDOS DEL CANAL.
+
+La solucion tiene que ser un numero entero porque trabajamos en tiempo discreto
+
+--> dispersion del retardo. me dice que tal se comporta, si mi canal es perjudicial o no.
+
+--> PARAMETROS RICIAN.Parte real y parte imaginaria en parametros rician son iguales. Hay solo un k distinto de 0, porque hay linea de vista, en el 
+primer camino siempre. En los demas caminos hay reflexion. 
+
+--> MULTITRAYECTO RICIAN. Multiples trayectos donde el primero va a tener una k distinta de 0.
