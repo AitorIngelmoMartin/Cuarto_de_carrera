@@ -1,6 +1,6 @@
-function [funcion] = representacion_funcion(a,f1,f2,b)
+function [funcion] = representacion_funcion(f1,f2,a,b)
 
-    t = 0:0.1:10;
+    t = linspace(0,10,250);
 
     if (isscalar(f1) && isscalar(f2) && isscalar(a) && isscalar(b))
         if f1>0 && f2>0

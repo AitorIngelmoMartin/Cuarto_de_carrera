@@ -7,6 +7,7 @@ function [volumen_cono] = calculo_volumen_cono(r,h)
             volumen_cono = (1/3)*pi*r*r*h;
         else
             warning("El valor del radio y la altura deben ser escalares positivo");
+            volumen_cono = "No es posible calcularlo";
         end
         
     catch 
