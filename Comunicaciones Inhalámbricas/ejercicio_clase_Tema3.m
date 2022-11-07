@@ -8,7 +8,7 @@ Lchip=32;
 % de bit.
 
 % 4*T_bit = Lchip*Tchip
-% Tchip=4*T_bit/Lchip
+% Tchip=4*T_bit/Lchip = 1/8*T_bit
 
 % Apartado B: Calcular el BW si...
 alfa = 0.25;
