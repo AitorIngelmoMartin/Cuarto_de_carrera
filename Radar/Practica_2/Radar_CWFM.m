@@ -4,9 +4,10 @@ clc;clear;close all;
 
 f0 = 28.5e9; %Hz
 c  = 3e8; %m/s
+w  = 10; % Velocidad de giro de la antena en rpm
 lambda = c/f0; %longitud de onda (m)
 
-w=10; % Velocidad de giro de la antena en rpm
+
 cobacimut = 20; %Cobertura en acimut de 20º
 
 % Anchos de haz
@@ -23,11 +24,12 @@ Tm = 1/fm;
 
 Trampa = eta1*Tm;
 Tutil  = eta1*eta2*Tm;
+
 k = pi*deltaf*fm;
-%%Calculo de la frecuencia de muestreo
+%% Calculo de la frecuencia de muestreo
 
 T_maximo = Trampa-Tutil;
-R_max = c*T_maximo/2;
+R_max    = c*T_maximo/2; %Resultado en metros
     % Frecuencia de batido maxima
 fb_maxima =  2*R_max*deltaf/(c*Trampa);
 
@@ -47,8 +49,8 @@ Grados_fila=velocidad_giro_grados_segundo * Trampa;
 % diferentes distancias.
 
 % Blancos
-distancia_blanco1=7e3; % distancia en m
-distancia_blanco2=10e3; % distancia en m.
+distancia_blanco1 = 7e3; % distancia en m
+distancia_blanco2 = 10e3; % distancia en m.
 % distancia_blanco3= distancia_blanco2-delta_R;
 
 % Frecuencia de batido asociada al blanco
@@ -78,7 +80,7 @@ salida_fft=fft(senal_suma); %En realidad tenemos muestras de la transformada de 
 
 eje_fb = n_muestra*fs/N_muestras;
 
-eje_Rb = c*Trampa/(2*deltaf) * eje_fb %Hacemos el escalado de frecuencia a distancias [*]
+eje_Rb = c*Trampa/(2*deltaf) * eje_fb; %Hacemos el escalado de frecuencia a distancias [*]
 
 acimut    = 0:Grados_fila:20-Grados_fila;
 figure(); 
@@ -87,4 +89,53 @@ plot(eje_Rb,abs(salida_fft)) %Nos da una sinc, no una delta. La X = K-1
 % Ahora la y es la frecuencia fk(foto movil 1).
 % [*]
 
+% Para ver la sinc, debemos poner una tasa de sobremuestreo superior
 
+salida_fft=fft(senal_suma,50*N_muestras); %En realidad tenemos muestras de la transformada de fourier. n muestras.
+
+indice_k_fft =0:((50*N_muestras)-1);
+
+eje_fb = indice_k_fft*fs/50*N_muestras;
+
+eje_Rb = c*Trampa/(2*deltaf) * eje_fb; %Hacemos el escalado de frecuencia a distancias [*]
+
+% acimut    = 0:Grados_fila:20-Grados_fila;
+figure(); 
+plot(eje_Rb,abs(salida_fft))
+
+
+%% 
+% Determinar la resolución en distancia del sistema y 
+% representar el módulo de la FFT de la señal_suma más la contribución de
+% un blanco a una distancia_blanco+resolucion y otro a una
+% distancia_blanco2+0.5*resolucion.
+
+% Resolucion en distancia
+Resolucion_distancia = ((c*Trampa)/(2*deltaf))*(1/Tutil)
+
+% Blancos
+distancia_blanco3 = 7e3  + Resolucion_distancia ; % distancia en m
+distancia_blanco4 = 10e3 + 0.5*Resolucion_distancia; % distancia en m.
+% Frecuencia de batido asociada al blanco
+
+fb_blanco3 = 2*distancia_blanco3*deltaf/(c*Trampa);
+fb_blanco4 = 2*distancia_blanco4*deltaf/(c*Trampa);
+
+% Señal recibida del blanco
+
+senal_blanco3= exp(1i*2*pi*fb_blanco3*n_muestra/fs);
+senal_blanco4 = exp(1i*2*pi*fb_blanco4*n_muestra/fs);
+
+senal_suma =  senal_suma + senal_blanco3+senal_blanco4;
+
+salida_fft=fft(senal_suma,50*N_muestras); %En realidad tenemos muestras de la transformada de fourier. n muestras.
+
+indice_k_fft =0:((50*N_muestras)-1);
+
+eje_fb = indice_k_fft*fs/(50*N_muestras);
+
+eje_Rb = c*Trampa/(2*deltaf) * eje_fb; %Hacemos el escalado de frecuencia a distancias [*]
+
+% acimut    = 0:Grados_fila:20-Grados_fila;
+figure(); 
+plot(eje_Rb,abs(salida_fft));grid;

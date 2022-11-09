@@ -1,0 +1,41 @@
+
+Modelo de señal que tenemos
+	Sr(n) = exp(j*OMEGA*n)
+	
+	2*pi*K/N_muestras=OMEGA = Wbi*Ts = 2*pi*fbi *1/fs
+
+La señal recibida a 7 coupa todo el tiempo util. Explicacion en diapositiva 8 de CWFM.
+La ventana temporal en que calculo al diferencia es el tiempo util.
+
+Interesa que el tiempo util sea el mismo para todos porque tiene un impacto grande. 
+
+	N_muestras = Tutil*fs
+
+	Con esto obtengo la posicion de cualquier muestra.
+
+La señal de 7 y 10 combina las los dos blancos detectados. Lo que antes eran celdas de distancia en el caso de
+radar pulsado, ahora 
+
+Por poder podemos lanzar mas de una rampa a la vez.
+
+Tras lo recibido en 7 y 10 a la vez ¿como obtengo info de ahi?
+
+Podemos hacer un analisis espectral mediante una FFT.Como estamos procesando un
+segemtno (bloque), a la señal Sr(n) la multiplico por un pulso de (en nuestro caso)
+) 810 muestras.
+
+La transformada de fourier de un pulso es una sinc, por lo que la anchura a 3dB sabemos
+que es 1/Tiempo_util.
+
+ 
+
+
+
+
+
+
+
+
+
+
+
