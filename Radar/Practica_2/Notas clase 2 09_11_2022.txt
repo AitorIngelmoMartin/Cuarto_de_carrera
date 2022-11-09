@@ -1,0 +1,26 @@
+
+	En radares pulsados, la distancia maxima no ambigua la sacabas transmitiendo un pulso
+	
+
+	Ahora se mide cuando al lanzar una rampa, tarda en lanzarse la siguiente.
+
+19:25
+
+20:37
+A 7KM HAY UN BLANCO CON DOPPLER NULO. yA QUE SI REPRESENTO una columna el maximo esta en cero. Por eso vemos un punto amarillo abajo y otro
+arriba
+
+A 10 tenemos otro (en verdad 2, pero uno no se distingue).
+
+A 11 tenemos otro con doppler de 754.054. Podemos calcular el doppler teniendo en cuenta la velocidad, lo que nos da 760. En la imagnen vemos 754.054.
+
+
+La otra forma es triangular y periodica. La ventaja es que ahora tenemos dos zonas para realizar la resta.
+En uno es positivo y en otro negativo.
+
+
+20:40
+Lo mas interesante es que en caso de haber doppler podemos medirlo sin necesidad de medirlo en columna.
+Esto se debe a que tenemos una variacion...
+
+Aqui no necesitamos hacer columnas por esto.
