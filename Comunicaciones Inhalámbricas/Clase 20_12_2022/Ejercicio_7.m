@@ -11,13 +11,15 @@ Tau_max_ns        = Tofdm/4 * 1e9;
 
 Numero_portadora_datos = [48, 52, 108];
 Mapeadores = [2 4 16 64];
-Mapeador = max(Mapeadores);
-Bits_por_portadora     = 6;
-Numero_bits_simbolo = Numero_portadora_datos*Bits_por_portadora;
-Tsofdm = Tofdm + Prefijos_ciclicos
-R = 1./Tsofdm *1e3; % En simbolos/segundo
+Mapeador   = max(Mapeadores);
+Bits_por_portadora  = 6;
 
-Rb_mbps = R.*[Numero_bits_simbolo(1), Numero_bits_simbolo(2)].*1e-3
+Numero_bits_simbolo = Numero_portadora_datos*Bits_por_portadora;
+
+Tsofdm = Tofdm + Prefijos_ciclicos
+R      = 1./Tsofdm *1e3; % En simbolos/segundo
+
+Rb_mbps       = R.*[Numero_bits_simbolo(1), Numero_bits_simbolo(2)].*1e-3
 Rb_mbps_64QAM = 3/4*7;
 % SEGUNDA MITAD
 
