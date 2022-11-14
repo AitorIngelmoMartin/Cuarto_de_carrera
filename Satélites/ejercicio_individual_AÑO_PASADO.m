@@ -1,6 +1,6 @@
 %%Ejercicio individual satelites
 %Aparatado 1
-a1 = max(roots([6.7*10^-4 -9.91 -42372]));
+a1 = (roots([6.7*10^-4 -9.91 -42378]));
 a2 = 1.34*a1;
 r1 = (2*a1)/(((2.5*10^-4)*a1)+1);
 Rt = 6378;
