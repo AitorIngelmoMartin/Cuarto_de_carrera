@@ -1,0 +1,94 @@
+Modelo gausiano
+	Suponemos que la zona que iluminamos, hay diversos elementos dispersores.
+
+El clutter es algo que esta ahi sobre lo que incide la señal. Cosa que proboca un eco. Por lo que debemos
+caracterizar la reflectividad del clater.
+	La reflectividad es el valor complejo de la 
+	
+		Sumatorio_i=1:numero_elementos_reflectores ( sqrt(SigmaRcs_i * exp(j*Phic_i) )
+		Esto es una variable gaussiana N(o,P_i/2) +jN(0,Pc/2)
+		
+			Ruido = N(0,No) + j*N(0,No) de `potencia = 2*No
+			SNR = 10*log10(Er/No)
+		Antes el ruido era incorrelado, pero nuestro clutter está correlado. Esto ocurre o bien por la forma de funcionar del sistema o por el propio 		clutter. Esta es la diferencia del modelo.
+
+	Si aplico envolvente sale railig si le meto detector fase es exponencial (como en radio)
+
+Usamos la CNR =Clutter to Noise Relation
+
+	Esto es el 10*log10(Pclutter/2*No)
+	Siempre vamos a tener ruido. Por lo que si esta CNR sale por encima de 30dB, estamos en un escenario dominado por clutter.
+	
+	Esto no es un disparate, ya que cuando incluyamos otros modelos de clutter que no son gausianos, si consideramos
+	la suma de dos V.A, una gausiana y otra la que sea, el resultado es bastante arduo.
+	
+	Es por esto que empleamos el limitador de los 30dB.
+
+Usamos la SIR = Signal to inteference relation
+	
+	10*log10(Er/(No+Pclutter/2))
+
+Los ecos que recibimos del clutter tienen fase uniformemente distribuida entre 0 y pi.
+
+Amplitud y fase independientes
+	
+Componentes I y Q identicamente distribuidas.
+
+Componeentes I y Q (fase y cuadratura) ortogonales. Pero solo el gaussiano es independiente.
+
+CARACTEIZACION DEL CLUTTER
+
+El clutter superficial se considera simplemente como un blanco puntual.
+La diapositiva 7 tiene un dibujo que explica la situacion geometrica del clutter suprficial.
+
+El parametro sigma_superCero es un cociente de seccon radar (m2), y area (m2). Es decir, adimensional.Por lo que
+se suele expresar en dB.
+
+
+Los ejes de la elipse se obtienen con la relacion de la distancia y la apertura vertical.
+
+
+Vamos a estudiar un escenario dominado por clutter (escenario que me interesa para estudiarle).
+
+	Ecuacion radar
+		
+		S = Pr_blanco = Pt/4*pi*R*R *sigma_rcs_blanco *1/4*pi*R*R * Aeff.
+
+			cASO CLUTTER
+		C = Pr_clutter = Pt/4*pi*R*R * sigma_clutter *1/4*pi*R*R * Aeff
+
+		sigma_clutter  = Sigma_superCero * Incremento_R * R *sec(Phi) *Phi3dB
+
+		S/C = Sigma_Blanco/Sigma_superCero * Incremento_R * sec(Phi) * Phi3dB
+
+	Si busco un S/C minimo, obtengo un Rmax
+
+		Rmax = Sigma_Blanco / sigma_superCero*Incremento_R * sec(Phi)* Phi3dB * (S/C)min.
+
+	Es decir, pese a aumentar la potencia, NO obtenemos mejoria. Debemos jugar con estos parametros.
+	Cosa que antes no pasaba. Además, vemos la implicación de parámetros importants tales como la 
+	resolución.
+	Cuanto menor sea la resolucion (mayor la resolucion del sistema), el alcance es mayor. Pero 
+	cuanto mas pequeños es este valor, mayor es el ancho de banda. Y por tanto tenemos mas ruido.
+
+	Rmax es la distancia a la maxima a la que detecto cosas pese a tener clutter. OJO que es un alcance
+	diferente al instrumental.
+
+	La SIR minima es una para garantizar Pfa y Pd.
+
+MATRIZ DE DISPERSIÓN DEL CLUTTER.
+
+Diapositiva 10. La fase polarimétrica es clave. Es diferente en función de si es una estructura natural
+o artificial.
+
+
+MODELOS CLUTTER - posible doppler
+	Los blancos móviles son mas faciles de detectar, ya que hay una diferencia mayor entre el posible doppler
+	del clutter y el doppler del blanco.
+
+	EJEMPLO CON CLUTTER GAUSIANO
+		Es posible que se de en un caso marino con un radar de baja resolucion (Thaus superiores de 0.5us)
+		Si el radar tiene una gran resolucion, la contribución de los elementos que generan clutter apenas 			es aprecibale. Si la resolucion es muy alta, el clutter va a dar un pico (Pike).
+
+		Al de tierra le pasa igual en superficies no urbanizadas.
+	Ahora meteremos filtros cuyo objetivo es rechazar el clutter. DIAPOSITIVA 12
