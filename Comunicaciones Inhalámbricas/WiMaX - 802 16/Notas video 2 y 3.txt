@@ -1,0 +1,145 @@
+
+
+NOTAS VIODEO 2: ESTRUCTURA DE LA TRAMA OFDM -------------------------
+
+La estación base comparte mensajes de información durante la comunicación.
+Usa TDD, por lo que Tx y Rx usan la misma frecuencia. Por lo que hay un
+momento en el tiempo en que el Tx pasa a ser Rx y viceversa.
+
+A mayor longitud de trama, menos cabecera hay respecto a datos 
+por lo que hay mejor eficiencia de datos, pero hay mayor latencia.
+De entre todas las longitudes de trama, el compromiso está en 10us.
+
+La primera ráfraga establece donde empieza a tx cada usuario. Ademas
+de dar el perfil con el que se Tx o Rx.
+
+El preambulo es grande, esta formado por 2 simbolos.
+
+	El primero tienej un patron de 64 coefi que se repite 4 veces
+	El segundo es un patron de 128 coef que se repiten
+	2 veces
+Las subportadoras se amplifican con 3dB para asegurar que el preambulo llegue cor
+correctamente.
+
+Las rafagas en el enlace descendente usan un codigo llamado DIUC
+que identifica el perfil de rafaga. El pewrfil lo que ahce es dar las 
+caracteristicas del canal.
+
+	Frecuencia a la que trabajamos
+		
+	Relacion sxeñal a ruido donde dejamos de poder usar el perfil
+	
+	S/nr minimo para usar dicho perfil 
+
+Las rafagas del ascendente usan UIUC, que define el esquema de mpdulacion
+codigficacion y el aumento de potencia en Db que se usa para solicitar
+el BW de contención.
+
+Primera rafaga
+	Se establece el orden de Tx dentero de la trama
+	
+	1) Se mandan 4 mx de difusión a todos los usuarios.
+		1 dice donde deben empezar a Tx el descendente.
+		2 dice a los usuarios donde Tx el ascendente.
+		3 perfil de rafagas descendente.
+		4 el perfil de rafagas descendente.
+
+Con estos 4 mx todos los usuarios saben cuando y como Tx.
+
+
+Slot de contencon de ragging inicial y peticionde ancho de banda
+	Cuando un usuario se acerca a una estacion abse, en un principio
+	requiere sincronizarse con la estacion base para poder comunicarse con ella.
+
+	Por ello, el usuario lo primero que hace es lanzar este slot para poder hacerlo. (aqui va el raggin inicial)
+
+	El de ancho de banda sirve para que e usuario pida mayor ancho de banda a la EB.
+
+	Como esta información es muy importante, la amplificamos 3dB para que llegue a la estación base
+	como corresponde.
+
+
+Los datos que entran a OFDM son, en nuestro caso, toda la subtrama descendente si estamos en la EB, o la
+rafaga del usuairio si somos usuario.
+
+Desde el punto de vista de la EB:
+
+Datos --> aleatorizador (DIUC UICU) --> Codificador externo Reed-Solomon --> Codificador convolucional especidico de 802.16 --> Perforado --> Interleaver --> Estos bits entrelazados van al serie paralelo --> Trasladamos los bits a cada rama alternando los bits consecutivos cada 4 portadoras para que los bits modulen portadoras difernetes --> pasa a un mapeador para pasar el numero complejo a una constelación, y lo pasamos a la IFFT junto con portadoras piloto.
+
+
+
+
+NOTAS VIODEO 3: MECANISMOS DE CONTROL Y PARAMETROS RF EN WIMAX OFDM -----------------------------------------------
+
+
+Para que los sistemas funcionen, requerimos un reloj común proporcionado por un Rx GPS. De esta forma
+establecemos la referencia de tiempo  y frecuencia de cada EB. Estos relojes son de 1pps para tiempo y de 10 Mhz para frecuencia.
+
+Hay 2 mecanismos de control ranging y control de potencia.
+
+rANGING: Es e
+	Inicial: Nos permite establecer una sincronizacion con la EB y un ajuste de potencia grueso. Esto se 		lleva a cabo en el intervalo de contención anterior.
+	Sin embargo, necesitamos observar parametros de forma periódica.
+	Periodico: Se envia durante la Tx de la rafaga ascendente. Cada cierto tiempo comprueba los parametros de 	sincronismo y potencia y los ajusta de forma más fina.
+
+	Asignación de anchos de banda
+		El BW no es fijo, la estación lo irá concediendo en función de la conjestion y las necesidades
+		del canal. Por esto se admiten mas usuarios que de normal. Los usuarios deben pedir BW para que se 	lo asignen.
+
+	La estacion base le proporciona una serie de intervalor para TX.
+
+Control de potencia
+
+Se implementa un algoritmo que permite al usuario a traves del UL hacer una calibracion de la potencia que transmite y hacer un ajuste periodico de la misma para ajustarse a las condiciones del canak, El objetivo final es tener  un valor correcto de potencia para cada portadora.
+
+La potencia portadorra = Ptx/Nportadoras, por lo que la EB  puede haer una medida exacta de una rafaga TX por el usuario, comparandola con la Ptx dericibda y la que se quiere recibir. Devuelve la compensación necsaria para que siempre se cumplan los requisitos deseados.
+
+Cada usuario puede Tx con una modulacion/codificacion adaptadas a su perfil en base al canal que el usuario vea. Como cada uno TX a una modulacion diferente, hay que mantener estos margenes para no llegar a saturacion en el amplificador de RF.
+
+Los usuarios mandan ademas la potencia maxima para cada modulacion, y la que tx en ese momento. Con todo esto la EB hace una asignacion optima para que el usuario sepa que usar en ese momenti.
+Tambien asigna subcanales de señalizacion en caso de que haga falta.
+
+Al margen de esto, la EB hace una serie de medidas de la señal recibida, de forma que esas medidas ayuden a ña nueva asignacion de modulacion y codificacion. Estas medidas son RSSI y CINR
+	RSSI: Nos da una ida del nivel de señal que recibe el usuario.
+	CINR: Nos da una idea de la relacion señal ruido portadora.
+
+Para obtener la RSSI el procedimiento es que la EB ordena al usuario medir la RSSI a partir de los preambulos
+del enlace descendente. 
+El usuario hace varias medidas para estimar la media y varianza en esos mensajes especificos del preambulo que le ha dicho la EB que mida. Se hace un incremento de 1dB en el margen -40 a -123 dbm, para hacerse una idea completa.
+
+Para medir la CINR es una medida que ordena la EB. Hace la media y varianza medido en MX especificos para ello. Son de nuevo in crementos de 1dB en el intervalo -10 a -53 para crear un parametro de control capaz de adaptarse a todo.
+
+Requisitos del receptor:
+	Esta sensibilidad se calcula en función de la SNR propuesta para cada perfil de TX.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
