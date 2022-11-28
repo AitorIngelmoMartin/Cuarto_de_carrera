@@ -116,8 +116,31 @@ Requisitos del receptor:
 
 
 
+------------clase
 
+Las portadoras piloto van en bpsk 1/2. Ya que es más robusto y no necesitamos mucha velocidad, solo que llegue bien. No se aleatoriza la información.
 
+Usos de cada cabezera de la trama Downlink
+
+1 sincronizamos
+
+2 FCH: estrucutra basica: Velocidad, donde empieza y termina, y si hay preambulo. Ademas de los perfiles de los primeros 4.
+
+3 Rafagas.  Por cada ráfaga, tenemos un DLMAP. Esta es la forma de estructurar en mensajes de la capa MAC como voy a transmitir la información al usuario.
+
+4
+
+5 
+
+6
+
+7
+
+8
+
+9
+
+10 
 
 
 
