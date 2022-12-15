@@ -1,0 +1,1 @@
+python social_distancing_detector.py --image=imagenes\imagen1.jpg

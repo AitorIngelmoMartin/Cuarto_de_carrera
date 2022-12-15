@@ -1,0 +1,15 @@
+
+Modelos preentrenados para detectar objectos:
+https://www.mathworks.com/help/vision/ug/getting-started-with-object-detection-using-deep-learning.html
+
+Ejemplos:
+https://www.mathworks.com/help/vision/ug/object-detection-using-yolov4-deep-learning.html
+https://www.mathworks.com/help/deeplearning/ug/code-generation-for-object-detection-using-YOLO-v4.html
+https://www.mathworks.com/help/vision/ug/detecting-cars-using-gaussian-mixture-models.html
+https://github.com/matlab-deep-learning/pretrained-yolo-v4
+
+Entrenar YOLOv4:
+https://www.mathworks.com/help/vision/ref/trainyolov4objectdetector.html
+
+Datasets de matlab:
+https://www.mathworks.com/help/deeplearning/ug/data-sets-for-deep-learning.html#mw_d3130147-29e6-47eb-b6f3-9a11a4c8b659
